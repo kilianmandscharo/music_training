@@ -27,10 +27,10 @@ export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
             guesses
                 .map((guess) => guess.time)
                 .reduce((prev, curr) => prev + curr) / guesses.length;
-        setAverageTime(round(averageTimeUnrounded));
+        setAverageTime(roundOneDecimal(averageTimeUnrounded));
     };
 
-    const round = (number: number) => {
+    const roundOneDecimal = (number: number) => {
         return Math.round((number + Number.EPSILON) * 10) / 10;
     };
 
@@ -45,36 +45,38 @@ export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
     };
 
     return (
-        <div className="absolute top-0 left-0 right-0 bottom-0 bg-orange-200 flex flex-col gap-4 justify-center items-center">
-            <p className="text-2xl">Round Ended</p>
-            <p>
-                Correct Notes: {correctNotes}/10 ––– {correctNotes * 10}%
-            </p>
+        <div className="absolute top-0 left-0 right-0 bottom-0 bg-orange-200 flex flex-col gap-3 justify-center items-center">
+            <p className="text-2xl">Round Finished</p>
+            <p>Correct Notes: {correctNotes}/10</p>
             <p>Average time per note: {averageTime}s</p>
             <div>
                 {guesses.map((guess, i) => (
                     <p
                         key={i}
-                        className={`text-sm mb-1 ${
-                            guess.correct ? "bg-green-300" : "bg-red-300"
-                        } hover:bg-cyan-300 transition-colors`}
+                        className={`text-sm px-4 rounded-full mb-1 ${
+                            guess.correct ? "bg-green-400" : "bg-red-400"
+                        } hover:bg-blue-300 transition-colors`}
                         onPointerEnter={(e) =>
                             handlePointerEnter(e, guess.fullNoteName)
                         }
                         onPointerLeave={handlePointerLeave}
                     >
                         Round {i}: guessed {guess.noteGuessed}, correct was{" "}
-                        {guess.correctNote} ––– time: {round(guess.time)} s
+                        {guess.correctNote} ––– time:{" "}
+                        {roundOneDecimal(guess.time)} s
                     </p>
                 ))}
             </div>
-            <button onClick={newRound} className="bg-blue-500 p-4 rounded-md">
+            <button
+                onClick={newRound}
+                className="bg-blue-500 p-4 rounded-md hover:text-white"
+            >
                 New Round
             </button>
             {hover && (
                 <div
                     style={{ top: currentOffset - 100 }}
-                    className={`absolute right-12 flex justify-center items-center px-2 h-40 bg-white animate-appear`}
+                    className={`absolute right-12 flex justify-center items-center px-2 h-40 bg-white animate-appear rounded-md shadow-md`}
                 >
                     {note}
                 </div>

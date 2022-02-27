@@ -13,7 +13,7 @@ export default function Keypad({ handleInput, disabled }: KeypadProps) {
                     disabled={disabled}
                     key={i}
                     onClick={() => handleInput(letter)}
-                    className="m-8 bg-orange-300 w-10 rounded-lg"
+                    className="m-6 bg-orange-300 w-14 p-2 rounded-lg hover:text-white"
                 >
                     {letter}
                 </button>
