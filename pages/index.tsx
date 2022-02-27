@@ -2,15 +2,19 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Keypad from "../components/Keypad";
 import { noteComponents } from "../components/Notes";
+import Stats from "../components/Stats";
+import Welcome from "../components/Welcome";
+import { Guess } from "../interfaces/interfaces";
 
 const Home: NextPage = () => {
     const [noteComponent, setNoteComponent] = useState(<div></div>);
     const [currentNote, setCurrentNote] = useState("");
     const [message, setMessage] = useState("What's this note?");
-
-    useEffect(() => {
-        nextNote();
-    }, []);
+    const [round, setRound] = useState(1);
+    const [guesses, setGuesses] = useState<Guess[]>([]);
+    const [roundEnded, setRoundEnded] = useState(false);
+    const [timeAtLastInput, setTimeAtLastInput] = useState(new Date());
+    const [showWelcome, setShowWelcome] = useState(true);
 
     const nextNote = () => {
         const notes: any = noteComponents;
@@ -23,15 +27,42 @@ const Home: NextPage = () => {
     };
 
     const handleInput = (inputNote: string) => {
-        setMessage(inputNote === currentNote ? "Correct" : "False");
+        const correct = inputNote === currentNote;
+        const now = new Date().getTime();
+        const time = (now - timeAtLastInput.getTime()) / 1000;
+        setGuesses([
+            ...guesses,
+            { correct, time, correctNote: currentNote, noteGuessed: inputNote },
+        ]);
+        setMessage(correct ? "Correct" : "False");
         setTimeout(() => {
-            nextNote();
-            setMessage("What's this note?");
+            if (round === 10) {
+                setRoundEnded(true);
+            } else {
+                nextNote();
+                setTimeAtLastInput(new Date());
+                setMessage("What's this note?");
+                setRound((prev) => prev + 1);
+            }
         }, 1000);
     };
 
+    const newRound = () => {
+        nextNote();
+        setRound(1);
+        setGuesses([]);
+        setTimeAtLastInput(new Date());
+        setMessage("What's this note?");
+        setRoundEnded(false);
+    };
+
+    const startFirstRound = () => {
+        setShowWelcome(false);
+        newRound();
+    };
+
     return (
-        <div className="mx-auto bg-blue-300 max-w-4xl grid justify-center p-8">
+        <div className="relative mx-auto bg-blue-300 max-w-4xl grid justify-center p-8">
             <header>
                 <h1 className="text-4xl text-center">Learn the notes</h1>
             </header>
@@ -39,7 +70,16 @@ const Home: NextPage = () => {
                 {noteComponent}
             </div>
             <div className="text-center">{message}</div>
-            <Keypad handleInput={handleInput} />
+            <Keypad handleInput={handleInput} disabled={showWelcome} />
+            {roundEnded && (
+                <Stats
+                    guesses={guesses}
+                    newRound={newRound}
+                    roundEnded={roundEnded}
+                />
+            )}
+            <div>Round: {round}</div>
+            {showWelcome && <Welcome startFirstRound={startFirstRound} />}
         </div>
     );
 };
