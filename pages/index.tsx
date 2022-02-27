@@ -4,11 +4,12 @@ import Keypad from "../components/Keypad";
 import { noteComponents } from "../components/Notes";
 import Stats from "../components/Stats";
 import Welcome from "../components/Welcome";
+import noteTest from "../functions/noteTest";
 import { Guess } from "../interfaces/interfaces";
 
 const Home: NextPage = () => {
     const [noteComponent, setNoteComponent] = useState(<div></div>);
-    const [currentNote, setCurrentNote] = useState("");
+    const [currentNote, setCurrentNote] = useState<string[]>([]);
     const [message, setMessage] = useState("What's this note?");
     const [round, setRound] = useState(1);
     const [guesses, setGuesses] = useState<Guess[]>([]);
@@ -23,16 +24,26 @@ const Home: NextPage = () => {
             noteNames[Math.floor(Math.random() * noteNames.length)];
         const randomNote = notes[randomNoteName];
         setNoteComponent(randomNote);
-        setCurrentNote(randomNoteName.split("")[2].toUpperCase());
+        setCurrentNote([
+            randomNoteName.split("")[2].toUpperCase(),
+            randomNoteName,
+        ]);
     };
 
     const handleInput = (inputNote: string) => {
-        const correct = inputNote === currentNote;
+        const [current, fullNoteName] = currentNote;
+        const correct = inputNote === current;
         const now = new Date().getTime();
         const time = (now - timeAtLastInput.getTime()) / 1000;
         setGuesses([
             ...guesses,
-            { correct, time, correctNote: currentNote, noteGuessed: inputNote },
+            {
+                correct,
+                time,
+                correctNote: current,
+                noteGuessed: inputNote,
+                fullNoteName,
+            },
         ]);
         setMessage(correct ? "Correct" : "False");
         setTimeout(() => {
@@ -78,7 +89,7 @@ const Home: NextPage = () => {
                     roundEnded={roundEnded}
                 />
             )}
-            <div>Round: {round}</div>
+            <p className="mx-auto">Round: {round}</p>
             {showWelcome && <Welcome startFirstRound={startFirstRound} />}
         </div>
     );
