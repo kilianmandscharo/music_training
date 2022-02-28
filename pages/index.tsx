@@ -7,6 +7,8 @@ import Welcome from "../components/Welcome";
 import noteTest from "../functions/noteTest";
 import { Guess } from "../interfaces/interfaces";
 
+const keys = ["C", "D", "E", "F", "G", "A", "H"];
+
 const Home: NextPage = () => {
     const [noteComponent, setNoteComponent] = useState(<div></div>);
     const [currentNote, setCurrentNote] = useState<string[]>([]);
@@ -16,6 +18,24 @@ const Home: NextPage = () => {
     const [roundEnded, setRoundEnded] = useState(false);
     const [timeAtLastInput, setTimeAtLastInput] = useState(new Date());
     const [showWelcome, setShowWelcome] = useState(true);
+
+    useEffect(() => {
+        nextNote();
+    }, []);
+
+    const handleKeyPress = (e: KeyboardEvent) => {
+        const key = e.key.toUpperCase();
+        if (keys.includes(key)) {
+            handleInput(key);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("keypress", handleKeyPress);
+        return () => {
+            window.removeEventListener("keypress", handleKeyPress);
+        };
+    }, [handleKeyPress]);
 
     const nextNote = () => {
         const notes: any = noteComponents;
@@ -69,11 +89,10 @@ const Home: NextPage = () => {
 
     const startFirstRound = () => {
         setShowWelcome(false);
-        newRound();
     };
 
     return (
-        <div className="base-black relative mx-auto max-w-4xl h-screen min-w-[18rem] flex flex-col justify-around items-center p-8 text-white/90">
+        <div className="base-black relative mx-auto max-w-4xl h-screen min-w-[18rem] flex flex-col justify-around items-center p-8 text-white/90 font-body">
             <div className="text-center text-2xl my-4">{message}</div>
             <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
                 {noteComponent}

@@ -63,8 +63,8 @@ export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
     };
 
     return (
-        <div className="absolute top-0 left-0 right-0 bottom-0 base-black flex flex-col gap-3 justify-around items-center py-4">
-            <p className="text-3xl">Round Finished</p>
+        <div className="absolute top-0 left-0 right-0 bottom-0 base-black flex flex-col gap-3 justify-around items-center py-4 animate-animateStats">
+            <p className="text-3xl font-header">Round Finished</p>
             <div>
                 <p className="text-center text-lg">
                     Correct Notes: {correctNotes}/10
