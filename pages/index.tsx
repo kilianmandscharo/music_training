@@ -10,7 +10,7 @@ import { Guess } from "../interfaces/interfaces";
 const Home: NextPage = () => {
     const [noteComponent, setNoteComponent] = useState(<div></div>);
     const [currentNote, setCurrentNote] = useState<string[]>([]);
-    const [message, setMessage] = useState("What's this note?");
+    const [message, setMessage] = useState("Welche Note ist das?");
     const [round, setRound] = useState(1);
     const [guesses, setGuesses] = useState<Guess[]>([]);
     const [roundEnded, setRoundEnded] = useState(false);
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
             } else {
                 nextNote();
                 setTimeAtLastInput(new Date());
-                setMessage("What's this note?");
+                setMessage("Welche Note ist das?");
                 setRound((prev) => prev + 1);
             }
         }, 1000);
@@ -63,7 +63,7 @@ const Home: NextPage = () => {
         setRound(1);
         setGuesses([]);
         setTimeAtLastInput(new Date());
-        setMessage("What's this note?");
+        setMessage("Welche Note ist das?");
         setRoundEnded(false);
     };
 
@@ -73,14 +73,11 @@ const Home: NextPage = () => {
     };
 
     return (
-        <div className="relative mx-auto bg-blue-300 max-w-4xl grid justify-center p-8">
-            <header>
-                <h1 className="text-4xl text-center">Learn the notes</h1>
-            </header>
-            <div className="w-10/12 mx-auto flex justify-center items-center p-12 m-8 h-36">
+        <div className="base-black relative mx-auto max-w-4xl h-screen min-w-[18rem] flex flex-col justify-around items-center p-8 text-white/90">
+            <div className="text-center text-2xl my-4">{message}</div>
+            <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
                 {noteComponent}
             </div>
-            <div className="text-center">{message}</div>
             <Keypad handleInput={handleInput} disabled={showWelcome} />
             {roundEnded && (
                 <Stats
@@ -89,7 +86,7 @@ const Home: NextPage = () => {
                     roundEnded={roundEnded}
                 />
             )}
-            <p className="mx-auto">Round: {round}</p>
+            <p className="mx-auto mt-12 text-xl">Runde {round}</p>
             {showWelcome && <Welcome startFirstRound={startFirstRound} />}
         </div>
     );

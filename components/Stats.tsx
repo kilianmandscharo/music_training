@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useWindowWidth from "../hooks/useWindowWidth";
 import { Guess } from "../interfaces/interfaces";
 import { noteComponents } from "./Notes";
 
@@ -13,7 +14,10 @@ export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
     const [averageTime, setAverageTime] = useState(0);
     const [note, setNote] = useState(<div></div>);
     const [hover, setHover] = useState(false);
+    const [clicked, setClicked] = useState(false);
     const [currentOffset, setCurrentOffset] = useState(0);
+
+    const width = useWindowWidth();
 
     useEffect(() => {
         if (roundEnded) {
@@ -34,49 +38,80 @@ export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
         return Math.round((number + Number.EPSILON) * 10) / 10;
     };
 
-    const handlePointerEnter = (e: any, noteName: string) => {
+    const handleMouseEnter = (e: any, noteName: string) => {
+        if (width < 640) {
+            return;
+        }
         setCurrentOffset(e.pageY);
         setNote(noteComponents[noteName as keyof typeof noteComponents]);
         setHover(true);
     };
 
-    const handlePointerLeave = () => {
+    const handleMouseLeave = () => {
+        if (width < 640) {
+            return;
+        }
         setHover(false);
     };
 
+    const handleClick = (noteName: string) => {
+        if (width >= 640) {
+            return;
+        }
+        setNote(noteComponents[noteName as keyof typeof noteComponents]);
+        setClicked(true);
+    };
+
     return (
-        <div className="absolute top-0 left-0 right-0 bottom-0 bg-orange-200 flex flex-col gap-3 justify-center items-center">
-            <p className="text-2xl">Round Finished</p>
-            <p>Correct Notes: {correctNotes}/10</p>
-            <p>Average time per note: {averageTime}s</p>
+        <div className="absolute top-0 left-0 right-0 bottom-0 base-black flex flex-col gap-3 justify-around items-center py-4">
+            <p className="text-3xl">Round Finished</p>
+            <div>
+                <p className="text-center text-lg">
+                    Correct Notes: {correctNotes}/10
+                </p>
+                <p className="text-center text-lg">
+                    Average time per note: {averageTime}s
+                </p>
+            </div>
             <div>
                 {guesses.map((guess, i) => (
                     <p
                         key={i}
-                        className={`text-sm px-4 rounded-full mb-1 ${
+                        className={`text-sm text-gray-800 py-2 px-4 rounded-full mb-2 ${
                             guess.correct ? "bg-green-400" : "bg-red-400"
-                        } hover:bg-blue-300 transition-colors`}
-                        onPointerEnter={(e) =>
-                            handlePointerEnter(e, guess.fullNoteName)
+                        } sm:hover:bg-blue-300 transition-colors`}
+                        onMouseEnter={(e) =>
+                            handleMouseEnter(e, guess.fullNoteName)
                         }
-                        onPointerLeave={handlePointerLeave}
+                        onMouseLeave={handleMouseLeave}
+                        onClick={() => handleClick(guess.fullNoteName)}
                     >
-                        Round {i}: guessed {guess.noteGuessed}, correct was{" "}
-                        {guess.correctNote} ––– time:{" "}
-                        {roundOneDecimal(guess.time)} s
+                        Runde {i + 1}:{" "}
+                        {guess.correct
+                            ? `${guess.correctNote} war richtig`
+                            : `${guess.noteGuessed}, richtig war ${guess.correctNote}`}{" "}
+                        ––– Zeit: {roundOneDecimal(guess.time)} s
                     </p>
                 ))}
             </div>
             <button
                 onClick={newRound}
-                className="bg-blue-500 p-4 rounded-md hover:text-white"
+                className="bg-blue-300 p-4 rounded-md hover:bg-blue-400 text-gray-700 transition-colors"
             >
-                New Round
+                Neue Runde
             </button>
-            {hover && (
+            {hover && width >= 640 && (
                 <div
                     style={{ top: currentOffset - 100 }}
                     className={`absolute right-12 flex justify-center items-center px-2 h-40 bg-white animate-appear rounded-md shadow-md`}
+                >
+                    {note}
+                </div>
+            )}
+            {clicked && width < 640 && (
+                <div
+                    className={`absolute flex justify-center items-center px-2 top-5 w-4/5 bg-white animate-appear rounded-md shadow-md`}
+                    onClick={() => setClicked(false)}
                 >
                     {note}
                 </div>
