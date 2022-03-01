@@ -73,7 +73,7 @@ export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
                     Average time per note: {averageTime}s
                 </p>
             </div>
-            <div>
+            <div className="h-3/6 overflow-scroll overflow-x-hidden">
                 {guesses.map((guess, i) => (
                     <p
                         key={i}
@@ -96,7 +96,7 @@ export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
             </div>
             <button
                 onClick={newRound}
-                className="bg-blue-300 p-4 rounded-md hover:bg-blue-400 text-gray-700 transition-colors"
+                className="bg-blue-300 py-2 px-6 rounded-md hover:bg-blue-400 text-gray-700 transition-colors"
             >
                 Neue Runde
             </button>

@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Keypad from "../components/Keypad";
-import MenuButton from "../components/MenuButton";
 import {
     noteComponents,
     noteDistributionAll,
@@ -129,7 +128,7 @@ const Home: NextPage = () => {
             <p className="mx-auto mt-4 text-xl">Runde {round}</p>
             <button
                 onClick={() => setShowWelcome(true)}
-                className="py-2 px-4 bg-blue-300 hover:bg-blue-400 text-gray-800 rounded-md"
+                className="py-2 px-6 bg-blue-300 hover:bg-blue-400 text-gray-800 rounded-md"
             >
                 Zur Startseite
             </button>
