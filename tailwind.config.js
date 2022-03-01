@@ -5,7 +5,7 @@ module.exports = {
 ],
   theme: {
     fontFamily: {
-      "header": ["Calistoga"],
+      "header": ["Patua One"],
       "body": ["Poppins"],
     },
     extend: {
@@ -27,7 +27,8 @@ module.exports = {
         "appear": "appear 0.3s linear 1",
         "welcomeFadeOut": "fadeOut 0.2s linear 1",
         "welcomeFadeIn": "fadeIn 0.2s linear 1",
-        "animateStats": "fadeIn 0.3s linear 1",
+        "statsFadeIn": "fadeIn 0.2s linear 1",
+        "statsFadeOut": "fadeOut 0.2s linear 1",
       }
     },
   },

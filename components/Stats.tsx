@@ -7,15 +7,22 @@ interface StatsProps {
     guesses: Guess[];
     newRound: () => void;
     roundEnded: boolean;
+    numberOfNotesPerRound: number;
 }
 
-export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
+export default function Stats({
+    guesses,
+    newRound,
+    roundEnded,
+    numberOfNotesPerRound,
+}: StatsProps) {
     const [correctNotes, setCorrectNotes] = useState(0);
     const [averageTime, setAverageTime] = useState(0);
     const [note, setNote] = useState(<div></div>);
     const [hover, setHover] = useState(false);
     const [clicked, setClicked] = useState(false);
     const [currentOffset, setCurrentOffset] = useState(0);
+    const [closing, setClosing] = useState(false);
 
     const width = useWindowWidth();
 
@@ -24,6 +31,13 @@ export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
             calculateStats();
         }
     }, [roundEnded]);
+
+    const handleNewRound = () => {
+        setClosing(true);
+        setTimeout(() => {
+            newRound();
+        }, 200);
+    };
 
     const calculateStats = () => {
         setCorrectNotes(guesses.filter((guess) => guess.correct).length);
@@ -63,17 +77,21 @@ export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
     };
 
     return (
-        <div className="absolute top-0 left-0 right-0 bottom-0 base-black flex flex-col gap-3 justify-around items-center py-4 animate-animateStats">
+        <div
+            className={`absolute top-0 left-0 right-0 bottom-0 base-black flex flex-col gap-3 justify-around items-center py-4 animate-statsFadeIn ${
+                closing ? "animate-statsFadeOut" : ""
+            }`}
+        >
             <p className="text-3xl font-header">Round Finished</p>
             <div>
                 <p className="text-center text-lg">
-                    Correct Notes: {correctNotes}/10
+                    Correct Notes: {correctNotes}/{numberOfNotesPerRound}
                 </p>
                 <p className="text-center text-lg">
                     Average time per note: {averageTime}s
                 </p>
             </div>
-            <div className="h-3/6 overflow-scroll overflow-x-hidden">
+            <div className="h-3/6 overflow-scroll overflow-x-hidden px-2">
                 {guesses.map((guess, i) => (
                     <p
                         key={i}
@@ -95,7 +113,7 @@ export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
                 ))}
             </div>
             <button
-                onClick={newRound}
+                onClick={handleNewRound}
                 className="bg-blue-300 py-2 px-6 rounded-md hover:bg-blue-400 text-gray-700 transition-colors"
             >
                 Neue Runde
@@ -110,7 +128,7 @@ export default function Stats({ guesses, newRound, roundEnded }: StatsProps) {
             )}
             {clicked && width < 640 && (
                 <div
-                    className={`absolute flex justify-center items-center px-2 top-5 w-4/5 bg-white animate-appear rounded-md shadow-md`}
+                    className={`absolute flex justify-center items-center px-2 top-10 w-4/5 bg-white animate-appear rounded-md shadow-md`}
                     onClick={() => setClicked(false)}
                 >
                     {note}

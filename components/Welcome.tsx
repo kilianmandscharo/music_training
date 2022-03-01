@@ -70,7 +70,7 @@ export default function Welcome({
                     : ""
             }`}
         >
-            <h1 className="text-center text-3xl font-header">
+            <h1 className="text-center text-4xl font-header">
                 Wilkommen zum Notentraining!
             </h1>
             <div className="flex flex-col gap-4">
