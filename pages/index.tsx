@@ -115,19 +115,24 @@ const Home: NextPage = () => {
     };
 
     const startRound = () => {
-        nextNote();
         setShowWelcome(false);
         setStarted(true);
     };
 
     return (
         <div className="base-black relative mx-auto max-w-4xl h-screen min-w-[18rem] flex flex-col justify-around items-center p-8 text-white/90 font-body">
-            <MenuButton goBack={() => setShowWelcome(true)} />
-            <div className="text-center text-2xl my-4">{message}</div>
+            <p className="text-xl">{message}</p>
             <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
                 {noteComponent}
             </div>
             <Keypad handleInput={handleInput} disabled={showWelcome} />
+            <p className="mx-auto mt-4 text-xl">Runde {round}</p>
+            <button
+                onClick={() => setShowWelcome(true)}
+                className="py-2 px-4 bg-blue-300 hover:bg-blue-400 text-gray-800 rounded-md"
+            >
+                Zur Startseite
+            </button>
             {roundEnded && (
                 <Stats
                     guesses={guesses}
@@ -135,13 +140,13 @@ const Home: NextPage = () => {
                     roundEnded={roundEnded}
                 />
             )}
-            <p className="mx-auto mt-12 text-xl">Runde {round}</p>
             {showWelcome && (
                 <Welcome
                     startRound={startRound}
                     changeMode={setMode}
                     currentMode={mode}
                     started={started}
+                    nextNote={nextNote}
                 />
             )}
         </div>

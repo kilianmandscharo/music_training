@@ -7,6 +7,7 @@ interface WelcomeProps {
     changeMode: Dispatch<SetStateAction<Mode>>;
     currentMode: Mode;
     started: boolean;
+    nextNote: () => void;
 }
 
 export default function Welcome({
@@ -14,11 +15,13 @@ export default function Welcome({
     changeMode,
     currentMode,
     started,
+    nextNote,
 }: WelcomeProps) {
     const [animating, setAnimating] = useState(false);
 
     const handleClick = () => {
         setAnimating(true);
+        nextNote();
         setTimeout(() => {
             startRound();
         }, 200);
