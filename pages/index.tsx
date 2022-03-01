@@ -27,6 +27,7 @@ const Home: NextPage = () => {
         Object.keys(noteComponents).slice(21)
     );
     const [started, setStarted] = useState(false);
+    const [totalRounds, setTotalRounds] = useState(10);
 
     useEffect(() => {
         const names = Object.keys(noteComponents);
@@ -93,7 +94,7 @@ const Home: NextPage = () => {
         ]);
         setMessage(correct ? "Correct" : "False");
         setTimeout(() => {
-            if (round === 10) {
+            if (round === totalRounds) {
                 setRoundEnded(true);
             } else {
                 nextNote();
@@ -146,6 +147,7 @@ const Home: NextPage = () => {
                     currentMode={mode}
                     started={started}
                     nextNote={nextNote}
+                    changeTotalRounds={setTotalRounds}
                 />
             )}
         </div>

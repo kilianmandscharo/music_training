@@ -8,6 +8,7 @@ interface WelcomeProps {
     currentMode: Mode;
     started: boolean;
     nextNote: () => void;
+    changeTotalRounds: Dispatch<SetStateAction<number>>;
 }
 
 export default function Welcome({
@@ -16,15 +17,47 @@ export default function Welcome({
     currentMode,
     started,
     nextNote,
+    changeTotalRounds,
 }: WelcomeProps) {
     const [animating, setAnimating] = useState(false);
+    const [currentInput, setCurrentInput] = useState("10");
+    const [noInputOnSubmit, setNoInputOnSubmit] = useState(false);
 
     const handleClick = () => {
+        if (!currentInput.length) {
+            setNoInputOnSubmit(true);
+            setTimeout(() => {
+                setNoInputOnSubmit(false);
+            }, 1000);
+            return;
+        }
+        changeTotalRounds(parseInt(currentInput));
         setAnimating(true);
         nextNote();
         setTimeout(() => {
             startRound();
         }, 200);
+    };
+
+    const handleInput = (e: React.ChangeEvent) => {
+        const input = (e.target as HTMLInputElement).value;
+        if (input.length > 2 || !checkIfNumberAndFirstNumberNotZero(input)) {
+            return;
+        }
+        setCurrentInput(input ? input : "");
+    };
+
+    const checkIfNumberAndFirstNumberNotZero = (input: string) => {
+        if (input[0] === "0") {
+            return false;
+        }
+        for (const character of input) {
+            const converted = parseInt(character);
+            if (isNaN(converted)) {
+                return false;
+            }
+        }
+        return true;
     };
 
     return (
@@ -57,9 +90,21 @@ export default function Welcome({
                     highlighted={currentMode === Mode.both}
                 />
             </div>
-            <p className="text-center text-md">
-                Identifiziere 10 Noten im ausgewälten Notenschlüssel.
-            </p>
+            <form className="flex flex-col justify-center items-center">
+                <label htmlFor="rounds" className="text-center mb-4 text-sm">
+                    Lege die Anzahl der Noten pro Runde fest (1-99), die du im
+                    jeweiligen Notenschlüssel identifizieren musst.
+                </label>
+                <input
+                    id="rounds"
+                    type="text"
+                    onChange={handleInput}
+                    className={`text-gray-800 py-1 px-4 w-44 border-4 ${
+                        noInputOnSubmit ? "border-red-500" : "border-white"
+                    }`}
+                    value={currentInput}
+                />
+            </form>
             <button
                 onClick={handleClick}
                 className="bg-blue-300 text-gray-700 rounded-md py-2 px-6 hover:bg-blue-400 transition-colors"
