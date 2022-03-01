@@ -123,6 +123,7 @@ const Home: NextPage = () => {
     };
 
     const startRound = () => {
+        setTimeAtLastInput(new Date());
         setShowWelcome(false);
         setStarted(true);
     };
