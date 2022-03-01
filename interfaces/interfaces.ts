@@ -5,3 +5,9 @@ export interface Guess {
     correct: boolean;
     time: number;
 }
+
+export enum Mode {
+    treble,
+    bass,
+    both,
+}

@@ -19,13 +19,14 @@ module.exports = {
           "100%": {top: 20, opacity: 0},
         },
         "fadeIn": {
-          "0%": {top: 40, opacity: 0},
+          "0%": {top: 20, opacity: 0},
           "100%": {top: 0, opacity: 1},
         }
       },
       animation: {
         "appear": "appear 0.3s linear 1",
-        "animateStart": "fadeOut 0.3s linear 1",
+        "welcomeFadeOut": "fadeOut 0.2s linear 1",
+        "welcomeFadeIn": "fadeIn 0.2s linear 1",
         "animateStats": "fadeIn 0.3s linear 1",
       }
     },

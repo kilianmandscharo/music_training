@@ -1,11 +1,16 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Keypad from "../components/Keypad";
-import { noteComponents, noteDistributionAll } from "../components/Notes";
+import MenuButton from "../components/MenuButton";
+import {
+    noteComponents,
+    noteDistributionAll,
+    noteDistributionSingle,
+} from "../components/Notes";
 import Stats from "../components/Stats";
 import Welcome from "../components/Welcome";
 import noteTest from "../functions/noteTest";
-import { Guess } from "../interfaces/interfaces";
+import { Guess, Mode } from "../interfaces/interfaces";
 
 const keys = ["C", "D", "E", "F", "G", "A", "H"];
 
@@ -18,10 +23,27 @@ const Home: NextPage = () => {
     const [roundEnded, setRoundEnded] = useState(false);
     const [timeAtLastInput, setTimeAtLastInput] = useState(new Date());
     const [showWelcome, setShowWelcome] = useState(true);
+    const [mode, setMode] = useState(Mode.treble);
+    const [noteNames, setNoteNames] = useState<string[]>(
+        Object.keys(noteComponents).slice(21)
+    );
+    const [started, setStarted] = useState(false);
+
+    useEffect(() => {
+        const names = Object.keys(noteComponents);
+        if (mode === Mode.bass) {
+            setNoteNames(names.slice(0, 21));
+        }
+        if (mode === Mode.treble) {
+            setNoteNames(names.slice(21));
+        }
+        if (mode === Mode.both) {
+            setNoteNames(names);
+        }
+    }, [mode]);
 
     useEffect(() => {
         nextNote();
-        noteTest(1000000);
     }, []);
 
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -40,10 +62,11 @@ const Home: NextPage = () => {
 
     const nextNote = () => {
         const notes: any = noteComponents;
-        const noteNames = Object.keys(notes);
+        const noteDistribution =
+            mode === Mode.both ? noteDistributionAll : noteDistributionSingle;
         const noteNameIndex =
-            noteDistributionAll[
-                Math.floor(Math.random() * noteDistributionAll.length)
+            noteDistribution[
+                Math.floor(Math.random() * noteDistribution.length)
             ];
         const randomNoteName = noteNames[noteNameIndex];
         const randomNote = notes[randomNoteName];
@@ -91,12 +114,15 @@ const Home: NextPage = () => {
         setRoundEnded(false);
     };
 
-    const startFirstRound = () => {
+    const startRound = () => {
+        nextNote();
         setShowWelcome(false);
+        setStarted(true);
     };
 
     return (
         <div className="base-black relative mx-auto max-w-4xl h-screen min-w-[18rem] flex flex-col justify-around items-center p-8 text-white/90 font-body">
+            <MenuButton goBack={() => setShowWelcome(true)} />
             <div className="text-center text-2xl my-4">{message}</div>
             <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
                 {noteComponent}
@@ -110,7 +136,14 @@ const Home: NextPage = () => {
                 />
             )}
             <p className="mx-auto mt-12 text-xl">Runde {round}</p>
-            {showWelcome && <Welcome startFirstRound={startFirstRound} />}
+            {showWelcome && (
+                <Welcome
+                    startRound={startRound}
+                    changeMode={setMode}
+                    currentMode={mode}
+                    started={started}
+                />
+            )}
         </div>
     );
 };
