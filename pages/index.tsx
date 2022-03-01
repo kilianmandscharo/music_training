@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Keypad from "../components/Keypad";
-import { noteComponents } from "../components/Notes";
+import { noteComponents, noteDistributionAll } from "../components/Notes";
 import Stats from "../components/Stats";
 import Welcome from "../components/Welcome";
 import noteTest from "../functions/noteTest";
@@ -21,6 +21,7 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         nextNote();
+        noteTest(1000000);
     }, []);
 
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -40,8 +41,11 @@ const Home: NextPage = () => {
     const nextNote = () => {
         const notes: any = noteComponents;
         const noteNames = Object.keys(notes);
-        const randomNoteName =
-            noteNames[Math.floor(Math.random() * noteNames.length)];
+        const noteNameIndex =
+            noteDistributionAll[
+                Math.floor(Math.random() * noteDistributionAll.length)
+            ];
+        const randomNoteName = noteNames[noteNameIndex];
         const randomNote = notes[randomNoteName];
         setNoteComponent(randomNote);
         setCurrentNote([
