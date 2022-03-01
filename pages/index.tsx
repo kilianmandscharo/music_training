@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import Button from "../components/Button";
 import Keypad from "../components/Keypad";
 import {
     noteComponents,
@@ -28,6 +29,7 @@ const Home: NextPage = () => {
     );
     const [started, setStarted] = useState(false);
     const [numberOfNotesPerRound, setNumberOfNotesPerRound] = useState(10);
+    const [noInputAllowed, setNoInputAllowed] = useState(false);
 
     useEffect(() => {
         const names = Object.keys(noteComponents);
@@ -78,6 +80,9 @@ const Home: NextPage = () => {
     };
 
     const handleInput = (inputNote: string) => {
+        if (noInputAllowed) {
+            return;
+        }
         const [current, fullNoteName] = currentNote;
         const correct = inputNote === current;
         const now = new Date().getTime();
@@ -93,10 +98,12 @@ const Home: NextPage = () => {
             },
         ]);
         setMessage(correct ? "Correct" : "False");
+        setNoInputAllowed(true);
         setTimeout(() => {
             if (round === numberOfNotesPerRound) {
                 setRoundEnded(true);
             } else {
+                setNoInputAllowed(false);
                 nextNote();
                 setTimeAtLastInput(new Date());
                 setMessage("Welche Note ist das?");
@@ -112,6 +119,7 @@ const Home: NextPage = () => {
         setTimeAtLastInput(new Date());
         setMessage("Welche Note ist das?");
         setRoundEnded(false);
+        setNoInputAllowed(false);
     };
 
     const startRound = () => {
@@ -138,21 +146,22 @@ const Home: NextPage = () => {
                     content="width=device-width, initial-scale=1.0"
                 />
             </Head>
-            <div className="base-black relative mx-auto max-w-4xl h-screen min-w-[18rem] flex flex-col justify-around items-center p-8 text-white/90 font-body">
+            <div className="base-black relative mx-auto max-w-4xl  min-w-[18rem] flex flex-col justify-around items-center p-8 text-white/90 font-body">
                 <p className="text-xl">{message}</p>
                 <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
                     {noteComponent}
                 </div>
-                <Keypad handleInput={handleInput} disabled={showWelcome} />
-                <p className="mx-auto mt-4 text-xl">
+                <Keypad
+                    handleInput={handleInput}
+                    disabled={showWelcome || roundEnded || noInputAllowed}
+                />
+                <p className="mx-auto my-4 text-xl">
                     Runde {round}/{numberOfNotesPerRound}
                 </p>
-                <button
-                    onClick={() => setShowWelcome(true)}
-                    className="py-2 px-6 bg-blue-300 hover:bg-blue-400 text-gray-800 rounded-md"
-                >
-                    Zur Startseite
-                </button>
+                <Button
+                    name="Zur Startseite"
+                    handleClick={() => setShowWelcome(true)}
+                />
                 {roundEnded && (
                     <Stats
                         guesses={guesses}

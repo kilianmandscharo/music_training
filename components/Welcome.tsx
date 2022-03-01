@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Mode } from "../interfaces/interfaces";
+import Button from "./Button";
 import ModeButton from "./ModeButton";
 
 interface WelcomeProps {
@@ -108,12 +109,7 @@ export default function Welcome({
                     value={currentInput}
                 />
             </form>
-            <button
-                onClick={handleClick}
-                className="bg-blue-300 text-gray-700 rounded-md py-2 px-6 hover:bg-blue-400 transition-colors"
-            >
-                Start
-            </button>
+            <Button name="Start" handleClick={handleClick} />
         </div>
     );
 }

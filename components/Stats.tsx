@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useWindowWidth from "../hooks/useWindowWidth";
 import { Guess } from "../interfaces/interfaces";
+import Button from "./Button";
 import { noteComponents } from "./Notes";
 
 interface StatsProps {
@@ -112,12 +113,7 @@ export default function Stats({
                     </p>
                 ))}
             </div>
-            <button
-                onClick={handleNewRound}
-                className="bg-blue-300 py-2 px-6 rounded-md hover:bg-blue-400 text-gray-700 transition-colors"
-            >
-                Neue Runde
-            </button>
+            <Button name="Neue Runde" handleClick={handleNewRound} />
             {hover && width >= 640 && (
                 <div
                     style={{ top: currentOffset - 100 }}
