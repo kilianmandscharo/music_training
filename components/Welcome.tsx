@@ -91,7 +91,10 @@ export default function Welcome({
                 />
             </div>
             <form className="flex flex-col justify-center items-center">
-                <label htmlFor="rounds" className="text-center mb-4 text-sm">
+                <label
+                    htmlFor="rounds"
+                    className="text-center mb-4 text-sm w-72"
+                >
                     Lege die Anzahl der Noten pro Runde fest (1-99), die du im
                     jeweiligen Notenschlüssel identifizieren musst.
                 </label>

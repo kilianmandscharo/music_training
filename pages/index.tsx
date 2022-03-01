@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { Head } from "next/document";
 import { useEffect, useState } from "react";
 import Keypad from "../components/Keypad";
 import {
@@ -8,7 +9,6 @@ import {
 } from "../components/Notes";
 import Stats from "../components/Stats";
 import Welcome from "../components/Welcome";
-import noteTest from "../functions/noteTest";
 import { Guess, Mode } from "../interfaces/interfaces";
 
 const keys = ["C", "D", "E", "F", "G", "A", "H"];
@@ -120,38 +120,57 @@ const Home: NextPage = () => {
     };
 
     return (
-        <div className="base-black relative mx-auto max-w-4xl h-screen min-w-[18rem] flex flex-col justify-around items-center p-8 text-white/90 font-body">
-            <p className="text-xl">{message}</p>
-            <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
-                {noteComponent}
+        <>
+            <Head>
+                <meta charSet="utf-8" />
+                <title>Notenlernen</title>
+                <meta name="author" content="Dominik Heller" />
+                <meta
+                    name="description"
+                    content="Lerne die verschiedenen Noten im Bass- und Violinschlüssel zu identifizieren."
+                />
+                <meta
+                    name="keywords"
+                    content="noten, lernen, wiederholung, bassschlüssel, violinschlüssel"
+                />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                />
+            </Head>
+            <div className="base-black relative mx-auto max-w-4xl h-screen min-w-[18rem] flex flex-col justify-around items-center p-8 text-white/90 font-body">
+                <p className="text-xl">{message}</p>
+                <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
+                    {noteComponent}
+                </div>
+                <Keypad handleInput={handleInput} disabled={showWelcome} />
+                <p className="mx-auto mt-4 text-xl">Runde {round}</p>
+                <button
+                    onClick={() => setShowWelcome(true)}
+                    className="py-2 px-6 bg-blue-300 hover:bg-blue-400 text-gray-800 rounded-md"
+                >
+                    Zur Startseite
+                </button>
+                {roundEnded && (
+                    <Stats
+                        guesses={guesses}
+                        newRound={newRound}
+                        roundEnded={roundEnded}
+                        numberOfNotesPerRound={numberOfNotesPerRound}
+                    />
+                )}
+                {showWelcome && (
+                    <Welcome
+                        startRound={startRound}
+                        changeMode={setMode}
+                        currentMode={mode}
+                        started={started}
+                        nextNote={nextNote}
+                        changeTotalRounds={setNumberOfNotesPerRound}
+                    />
+                )}
             </div>
-            <Keypad handleInput={handleInput} disabled={showWelcome} />
-            <p className="mx-auto mt-4 text-xl">Runde {round}</p>
-            <button
-                onClick={() => setShowWelcome(true)}
-                className="py-2 px-6 bg-blue-300 hover:bg-blue-400 text-gray-800 rounded-md"
-            >
-                Zur Startseite
-            </button>
-            {roundEnded && (
-                <Stats
-                    guesses={guesses}
-                    newRound={newRound}
-                    roundEnded={roundEnded}
-                    numberOfNotesPerRound={numberOfNotesPerRound}
-                />
-            )}
-            {showWelcome && (
-                <Welcome
-                    startRound={startRound}
-                    changeMode={setMode}
-                    currentMode={mode}
-                    started={started}
-                    nextNote={nextNote}
-                    changeTotalRounds={setNumberOfNotesPerRound}
-                />
-            )}
-        </div>
+        </>
     );
 };
 
