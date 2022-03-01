@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { Head } from "next/document";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import Keypad from "../components/Keypad";
 import {
@@ -144,7 +144,9 @@ const Home: NextPage = () => {
                     {noteComponent}
                 </div>
                 <Keypad handleInput={handleInput} disabled={showWelcome} />
-                <p className="mx-auto mt-4 text-xl">Runde {round}</p>
+                <p className="mx-auto mt-4 text-xl">
+                    Runde {round}/{numberOfNotesPerRound}
+                </p>
                 <button
                     onClick={() => setShowWelcome(true)}
                     className="py-2 px-6 bg-blue-300 hover:bg-blue-400 text-gray-800 rounded-md"
