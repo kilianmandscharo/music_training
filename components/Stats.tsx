@@ -83,13 +83,13 @@ export default function Stats({
                 closing ? "animate-statsFadeOut" : ""
             }`}
         >
-            <p className="text-3xl font-header">Round Finished</p>
+            <p className="text-3xl font-header">Runde beendet</p>
             <div>
                 <p className="text-center text-lg">
-                    Correct Notes: {correctNotes}/{numberOfNotesPerRound}
+                    Richtige Noten: {correctNotes}/{numberOfNotesPerRound}
                 </p>
                 <p className="text-center text-lg">
-                    Average time per note: {averageTime}s
+                    Durchschnittliche Zeit pro Note: {averageTime}s
                 </p>
             </div>
             <div className="h-3/6 overflow-scroll overflow-x-hidden px-2">
