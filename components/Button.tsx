@@ -1,7 +1,4 @@
-interface ButtonProps {
-    name: string;
-    handleClick: () => void;
-}
+import { ButtonProps } from "../interfaces/interfaces";
 
 export default function Button({ name, handleClick }: ButtonProps) {
     return (

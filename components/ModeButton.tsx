@@ -1,8 +1,4 @@
-interface ModeButtonProps {
-    name: string;
-    changeMode: () => void;
-    highlighted: boolean;
-}
+import { ModeButtonProps } from "../interfaces/interfaces";
 
 export default function ModeButton({
     name,

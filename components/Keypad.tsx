@@ -1,14 +1,10 @@
-const keys = ["C", "D", "E", "F", "G", "A", "H"];
-
-interface KeypadProps {
-    handleInput: (inputNote: string) => void;
-    disabled: boolean;
-}
+import { KEYS } from "../constants/constants";
+import { KeypadProps } from "../interfaces/interfaces";
 
 export default function Keypad({ handleInput, disabled }: KeypadProps) {
     return (
         <div className="flex flex-wrap justify-center items-center">
-            {keys.map((letter, i) => (
+            {KEYS.map((letter, i) => (
                 <button
                     disabled={disabled}
                     key={i}

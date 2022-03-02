@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import useWindowWidth from "../hooks/useWindowWidth";
-import { Guess } from "../interfaces/interfaces";
+import { Guess, StatsProps } from "../interfaces/interfaces";
 import Button from "./Button";
 import { noteComponents } from "./Notes";
-
-interface StatsProps {
-    guesses: Guess[];
-    newRound: () => void;
-    roundEnded: boolean;
-    numberOfNotesPerRound: number;
-}
 
 export default function Stats({
     guesses,
@@ -20,6 +13,7 @@ export default function Stats({
     const [correctNotes, setCorrectNotes] = useState(0);
     const [averageTime, setAverageTime] = useState(0);
     const [note, setNote] = useState(<div></div>);
+    const [currentNoteName, setCurrentNoteName] = useState("");
     const [hover, setHover] = useState(false);
     const [clicked, setClicked] = useState(false);
     const [currentOffset, setCurrentOffset] = useState(0);
@@ -73,8 +67,13 @@ export default function Stats({
         if (width >= 640) {
             return;
         }
-        setNote(noteComponents[noteName as keyof typeof noteComponents]);
-        setClicked(true);
+        if (noteName === currentNoteName && clicked) {
+            setClicked(false);
+        } else {
+            setCurrentNoteName(noteName);
+            setNote(noteComponents[noteName as keyof typeof noteComponents]);
+            setClicked(true);
+        }
     };
 
     return (
@@ -92,7 +91,7 @@ export default function Stats({
                     Durchschnittliche Zeit pro Note: {averageTime}s
                 </p>
             </div>
-            <div className="h-3/6 overflow-scroll overflow-x-hidden px-2">
+            <div className="h-3/6 mt-8 overflow-scroll overflow-x-hidden px-2">
                 {guesses.map((guess, i) => (
                     <p
                         key={i}
@@ -117,14 +116,14 @@ export default function Stats({
             {hover && width >= 640 && (
                 <div
                     style={{ top: currentOffset - 100 }}
-                    className={`absolute right-12 flex justify-center items-center px-2 h-40 bg-white animate-appear rounded-md shadow-md`}
+                    className={`absolute right-0 flex justify-center items-center px-2 bg-white animate-appear rounded-md shadow-md`}
                 >
                     {note}
                 </div>
             )}
             {clicked && width < 640 && (
                 <div
-                    className={`absolute flex justify-center items-center px-2 top-10 w-4/5 bg-white animate-appear rounded-md shadow-md`}
+                    className={`absolute flex justify-center items-center px-2 top-6 w-4/5 bg-white animate-appear rounded-md shadow-md`}
                     onClick={() => setClicked(false)}
                 >
                     {note}

@@ -60,8 +60,8 @@ export const noteDistributionAll = [
 function Ba1() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -129,8 +129,8 @@ function Ba1() {
 function Bh1() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -192,8 +192,8 @@ function Bh1() {
 function Bc2() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -255,8 +255,8 @@ function Bc2() {
 function Bd2() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -312,8 +312,8 @@ function Bd2() {
 function Be2() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -346,8 +346,8 @@ function Be2() {
 function Bf2() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -372,8 +372,8 @@ function Bf2() {
 function Bg2() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -398,8 +398,8 @@ function Bg2() {
 function Ba2() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -424,8 +424,8 @@ function Ba2() {
 function Bh2() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -449,8 +449,8 @@ function Bh2() {
 function Bc3() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -474,8 +474,8 @@ function Bc3() {
 function Bd3() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -499,8 +499,8 @@ function Bd3() {
 function Be3() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -525,8 +525,8 @@ function Be3() {
 function Bf3() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -551,8 +551,8 @@ function Bf3() {
 function Bg3() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -577,8 +577,8 @@ function Bg3() {
 function Ba3() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -603,8 +603,8 @@ function Ba3() {
 function Bh3() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -628,8 +628,8 @@ function Bh3() {
 function Bc4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -661,8 +661,8 @@ function Bc4() {
 function Bd4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -694,8 +694,8 @@ function Bd4() {
 function Be4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -756,8 +756,8 @@ function Be4() {
 function Bf4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -818,8 +818,8 @@ function Bf4() {
 function Bg4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -887,8 +887,8 @@ function Bg4() {
 function Tf3() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -955,8 +955,8 @@ function Tf3() {
 function Tg3() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1017,8 +1017,8 @@ function Tg3() {
 function Ta3() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1079,8 +1079,8 @@ function Ta3() {
 function Th3() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1112,8 +1112,8 @@ function Th3() {
 function Tc4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1145,8 +1145,8 @@ function Tc4() {
 function Td4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1170,8 +1170,8 @@ function Td4() {
 function Te4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1195,8 +1195,8 @@ function Te4() {
 function Tf4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1220,8 +1220,8 @@ function Tf4() {
 function Tg4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1245,8 +1245,8 @@ function Tg4() {
 function Ta4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1270,8 +1270,8 @@ function Ta4() {
 function Th4() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1295,8 +1295,8 @@ function Th4() {
 function Tc5() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1320,8 +1320,8 @@ function Tc5() {
 function Td5() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1345,8 +1345,8 @@ function Td5() {
 function Te5() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1370,8 +1370,8 @@ function Te5() {
 function Tf5() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1395,8 +1395,8 @@ function Tf5() {
 function Tg5() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1420,8 +1420,8 @@ function Tg5() {
 function Ta5() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1453,8 +1453,8 @@ function Ta5() {
 function Th5() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1486,8 +1486,8 @@ function Th5() {
 function Tc6() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1548,8 +1548,8 @@ function Tc6() {
 function Td6() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1610,8 +1610,8 @@ function Td6() {
 function Te6() {
     return (
         <svg
-            width="210"
-            height="150"
+            width="260"
+            height="200"
             viewBox="0 0 210 150"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

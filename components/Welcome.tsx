@@ -1,19 +1,11 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Mode } from "../interfaces/interfaces";
+import { Mode, WelcomeProps } from "../interfaces/interfaces";
 import Button from "./Button";
 import ModeButton from "./ModeButton";
 
-interface WelcomeProps {
-    startRound: () => void;
-    changeMode: Dispatch<SetStateAction<Mode>>;
-    currentMode: Mode;
-    started: boolean;
-    nextNote: () => void;
-    changeTotalRounds: Dispatch<SetStateAction<number>>;
-}
-
 export default function Welcome({
     startRound,
+    setupRound,
     changeMode,
     currentMode,
     started,
@@ -34,7 +26,7 @@ export default function Welcome({
         }
         changeTotalRounds(parseInt(currentInput));
         setAnimating(true);
-        nextNote();
+        setupRound();
         setTimeout(() => {
             startRound();
         }, 200);
@@ -63,7 +55,7 @@ export default function Welcome({
 
     return (
         <div
-            className={`base-black absolute top-0 right-0 bottom-0 left-0 p-12 flex flex-col justify-around items-center gap-4 text-white/90  ${
+            className={`base-black absolute top-0 right-0 bottom-0 left-0 p-12 flex flex-col justify-around items-center gap-8 text-white/90  ${
                 animating
                     ? "animate-welcomeFadeOut"
                     : started

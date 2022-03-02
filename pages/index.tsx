@@ -10,9 +10,8 @@ import {
 } from "../components/Notes";
 import Stats from "../components/Stats";
 import Welcome from "../components/Welcome";
+import { KEYS } from "../constants/constants";
 import { Guess, Mode } from "../interfaces/interfaces";
-
-const keys = ["C", "D", "E", "F", "G", "A", "H"];
 
 const Home: NextPage = () => {
     const [noteComponent, setNoteComponent] = useState(<div></div>);
@@ -50,7 +49,7 @@ const Home: NextPage = () => {
 
     const handleKeyPress = (e: KeyboardEvent) => {
         const key = e.key.toUpperCase();
-        if (keys.includes(key)) {
+        if (KEYS.includes(key)) {
             handleInput(key);
         }
     };
@@ -123,9 +122,18 @@ const Home: NextPage = () => {
     };
 
     const startRound = () => {
-        newRound();
         setShowWelcome(false);
         setStarted(true);
+    };
+
+    const setupRound = () => {
+        nextNote();
+        setRound(1);
+        setGuesses([]);
+        setTimeAtLastInput(new Date());
+        setMessage("Welche Note ist das?");
+        setRoundEnded(false);
+        setNoInputAllowed(false);
     };
 
     return (
@@ -147,7 +155,7 @@ const Home: NextPage = () => {
                     content="width=device-width, initial-scale=1.0"
                 />
             </Head>
-            <div className="base-black relative mx-auto max-w-4xl  min-w-[18rem] flex flex-col justify-around items-center p-8 text-white/90 font-body">
+            <div className="base-black relative mx-auto max-w-4xl  min-w-[18rem] flex flex-col justify-around items-center px-2 py-8 text-white/90 font-body">
                 <p className="text-xl">{message}</p>
                 <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
                     {noteComponent}
@@ -174,6 +182,7 @@ const Home: NextPage = () => {
                 {showWelcome && (
                     <Welcome
                         startRound={startRound}
+                        setupRound={setupRound}
                         changeMode={setMode}
                         currentMode={mode}
                         started={started}
