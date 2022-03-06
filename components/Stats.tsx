@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useWindowWidth from "../hooks/useWindowWidth";
-import { Guess, StatsProps } from "../interfaces/interfaces";
+import { StatsProps } from "../interfaces/interfaces";
 import Button from "./Button";
 import { noteComponents } from "./Notes";
 
@@ -78,7 +78,7 @@ export default function Stats({
 
     return (
         <div
-            className={`absolute top-0 left-0 right-0 bottom-0 base-black flex flex-col gap-3 justify-around items-center py-4 animate-statsFadeIn ${
+            className={`absolute top-0 left-0 right-0 bottom-0 bg-base-black flex flex-col gap-3 justify-around items-center py-4 animate-statsFadeIn ${
                 closing ? "animate-statsFadeOut" : ""
             }`}
         >

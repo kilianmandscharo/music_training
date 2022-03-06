@@ -1,17 +1,20 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Mode, WelcomeProps } from "../interfaces/interfaces";
+import Link from "next/link";
+import { useState } from "react";
+import { Mode, PageMenuProps } from "../interfaces/interfaces";
 import Button from "./Button";
 import ModeButton from "./ModeButton";
 
 export default function Welcome({
+    title,
+    description,
     startRound,
     setupRound,
     changeMode,
     currentMode,
     started,
-    nextNote,
     changeTotalRounds,
-}: WelcomeProps) {
+    buttons,
+}: PageMenuProps) {
     const [animating, setAnimating] = useState(false);
     const [currentInput, setCurrentInput] = useState("10");
     const [noInputOnSubmit, setNoInputOnSubmit] = useState(false);
@@ -55,7 +58,7 @@ export default function Welcome({
 
     return (
         <div
-            className={`base-black absolute top-0 right-0 bottom-0 left-0 p-12 flex flex-col justify-around items-center gap-8 text-white/90  ${
+            className={`bg-base-black absolute top-0 right-0 bottom-0 left-0 p-12 flex flex-col justify-around items-center gap-6 text-white/90  ${
                 animating
                     ? "animate-welcomeFadeOut"
                     : started
@@ -63,33 +66,14 @@ export default function Welcome({
                     : ""
             }`}
         >
-            <h1 className="text-center text-4xl font-header">
-                Wilkommen zum Notentraining!
-            </h1>
-            <div className="flex flex-col gap-4">
-                <ModeButton
-                    name="Violinschlüssel"
-                    changeMode={() => changeMode(Mode.treble)}
-                    highlighted={currentMode === Mode.treble}
-                />
-                <ModeButton
-                    name="Bassschlüssel"
-                    changeMode={() => changeMode(Mode.bass)}
-                    highlighted={currentMode === Mode.bass}
-                />
-                <ModeButton
-                    name="Violin- und Bassschlüssel"
-                    changeMode={() => changeMode(Mode.both)}
-                    highlighted={currentMode === Mode.both}
-                />
-            </div>
+            <h1 className="text-center text-4xl font-header">{title}</h1>
+            <div className="flex flex-col gap-4">{buttons}</div>
             <form className="flex flex-col justify-center items-center">
                 <label
                     htmlFor="rounds"
                     className="text-center mb-4 text-sm w-72"
                 >
-                    Lege die Anzahl der Noten pro Runde fest (1-99), die du im
-                    jeweiligen Notenschlüssel identifizieren musst.
+                    {description}
                 </label>
                 <input
                     id="rounds"
@@ -102,6 +86,11 @@ export default function Welcome({
                 />
             </form>
             <Button name="Start" handleClick={handleClick} />
+            <Link href="/">
+                <a className="bg-blue-300 py-2 px-6 rounded-md sm:hover:bg-blue-400 text-gray-800 transition-colors">
+                    Zur Startseite
+                </a>
+            </Link>
         </div>
     );
 }

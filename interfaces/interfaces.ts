@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 // Component interfaces
 export interface KeypadProps {
@@ -6,18 +6,20 @@ export interface KeypadProps {
     disabled: boolean;
 }
 
-export interface WelcomeProps {
+export interface PageMenuProps {
+    title: string;
+    description: string;
     startRound: () => void;
     setupRound: () => void;
-    changeMode: Dispatch<SetStateAction<Mode>>;
-    currentMode: Mode;
+    changeMode: Dispatch<SetStateAction<NoteMode>>;
+    currentMode: NoteMode;
     started: boolean;
-    nextNote: () => void;
     changeTotalRounds: Dispatch<SetStateAction<number>>;
+    buttons: React.ReactNode;
 }
 
 export interface StatsProps {
-    guesses: Guess[];
+    guesses: NoteGuess[];
     newRound: () => void;
     roundEnded: boolean;
     numberOfNotesPerRound: number;
@@ -34,16 +36,29 @@ export interface ButtonProps {
     handleClick: () => void;
 }
 
-export interface Guess {
+//Other
+export interface NoteGuess {
     noteGuessed: string;
     correctNote: string;
     fullNoteName: string;
     correct: boolean;
     time: number;
 }
+export interface IntervalGuess {
+    intervalGuessed: string;
+    correctInterval: string;
+    correct: boolean;
+    time: number;
+}
 
-export enum Mode {
+export enum NoteMode {
     treble,
     bass,
     both,
+}
+
+export enum IntervalMode {
+    simple,
+    diatonic,
+    all,
 }

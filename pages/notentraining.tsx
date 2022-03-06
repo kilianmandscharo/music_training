@@ -7,21 +7,23 @@ import {
     noteDistributionAll,
     noteDistributionSingle,
 } from "../components/Notes";
+import PageBody from "../components/PageBody";
 import Stats from "../components/Stats";
-import Welcome from "../components/Welcome";
+import PageMenu from "../components/PageMenu";
 import { KEYS } from "../constants/constants";
-import { Guess, Mode } from "../interfaces/interfaces";
+import { NoteGuess, NoteMode } from "../interfaces/interfaces";
+import ModeButton from "../components/ModeButton";
 
 const Notentraining = () => {
     const [noteComponent, setNoteComponent] = useState(<div></div>);
     const [currentNote, setCurrentNote] = useState<string[]>([]);
     const [message, setMessage] = useState("Welche Note ist das?");
     const [round, setRound] = useState(1);
-    const [guesses, setGuesses] = useState<Guess[]>([]);
+    const [guesses, setGuesses] = useState<NoteGuess[]>([]);
     const [roundEnded, setRoundEnded] = useState(false);
     const [timeAtLastInput, setTimeAtLastInput] = useState(new Date());
     const [showWelcome, setShowWelcome] = useState(true);
-    const [mode, setMode] = useState(Mode.treble);
+    const [mode, setMode] = useState(NoteMode.treble);
     const [noteNames, setNoteNames] = useState<string[]>(
         Object.keys(noteComponents).slice(21)
     );
@@ -31,13 +33,13 @@ const Notentraining = () => {
 
     useEffect(() => {
         const names = Object.keys(noteComponents);
-        if (mode === Mode.bass) {
+        if (mode === NoteMode.bass) {
             setNoteNames(names.slice(0, 21));
         }
-        if (mode === Mode.treble) {
+        if (mode === NoteMode.treble) {
             setNoteNames(names.slice(21));
         }
-        if (mode === Mode.both) {
+        if (mode === NoteMode.both) {
             setNoteNames(names);
         }
     }, [mode]);
@@ -63,7 +65,9 @@ const Notentraining = () => {
     const nextNote = () => {
         const notes: any = noteComponents;
         const noteDistribution =
-            mode === Mode.both ? noteDistributionAll : noteDistributionSingle;
+            mode === NoteMode.both
+                ? noteDistributionAll
+                : noteDistributionSingle;
         const noteNameIndex =
             noteDistribution[
                 Math.floor(Math.random() * noteDistribution.length)
@@ -147,24 +151,6 @@ const Notentraining = () => {
                 />
                 <meta
                     name="keywords"
-                    content="noten, lernen, bassschlüssel, violinschlüssel"
-                />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0"
-                />
-                <link rel="shortcut icon" href="favicon.ico" />
-            </Head>
-            <Head>
-                <meta charSet="utf-8" />
-                <title>Notenlernen</title>
-                <meta name="author" content="Dominik Heller" />
-                <meta
-                    name="description"
-                    content="Lerne die verschiedenen Noten im Bass- und Violinschlüssel zu identifizieren."
-                />
-                <meta
-                    name="keywords"
                     content="noten, lernen, wiederholung, bassschlüssel, violinschlüssel"
                 />
                 <meta
@@ -173,7 +159,7 @@ const Notentraining = () => {
                 />
                 <link rel="shortcut icon" href="favicon.ico" />
             </Head>
-            <div className="base-black relative mx-auto max-w-4xl  min-w-[18rem] flex flex-col justify-around items-center px-2 py-8 text-white/90 font-body">
+            <PageBody>
                 <p className="text-xl">{message}</p>
                 <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
                     {noteComponent}
@@ -186,7 +172,7 @@ const Notentraining = () => {
                     Runde {round}/{numberOfNotesPerRound}
                 </p>
                 <Button
-                    name="Zur Startseite"
+                    name="Zurück"
                     handleClick={() => setShowWelcome(true)}
                 />
                 {roundEnded && (
@@ -198,17 +184,38 @@ const Notentraining = () => {
                     />
                 )}
                 {showWelcome && (
-                    <Welcome
+                    <PageMenu
+                        description="Lege die Anzahl der Noten pro Runde fest (1-99), die du im
+                    jeweiligen Notenschlüssel identifizieren musst."
+                        title="Notentraining"
                         startRound={startRound}
                         setupRound={setupRound}
                         changeMode={setMode}
                         currentMode={mode}
                         started={started}
-                        nextNote={nextNote}
                         changeTotalRounds={setNumberOfNotesPerRound}
+                        buttons={
+                            <>
+                                <ModeButton
+                                    name="Violinschlüssel"
+                                    changeMode={() => setMode(NoteMode.treble)}
+                                    highlighted={mode === NoteMode.treble}
+                                />
+                                <ModeButton
+                                    name="Bassschlüssel"
+                                    changeMode={() => setMode(NoteMode.bass)}
+                                    highlighted={mode === NoteMode.bass}
+                                />
+                                <ModeButton
+                                    name="Violin- und Bassschlüssel"
+                                    changeMode={() => setMode(NoteMode.both)}
+                                    highlighted={mode === NoteMode.both}
+                                />
+                            </>
+                        }
                     />
                 )}
-            </div>
+            </PageBody>
         </>
     );
 };
