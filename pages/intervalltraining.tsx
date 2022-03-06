@@ -8,18 +8,19 @@ import Stats from "../components/Stats";
 import { IntervalGuess, IntervalMode } from "../interfaces/interfaces";
 
 const Intervalltraining: NextPage = () => {
-    const [noteComponent, setNoteComponent] = useState(<div></div>);
-    const [currentNote, setCurrentNote] = useState<string[]>([]);
-    const [message, setMessage] = useState("Welche Note ist das?");
+    const [intervalClip, setIntervalClip] = useState(<div></div>);
+    const [currentInterval, setCurrentInterval] = useState<string[]>([]);
+    const [message, setMessage] = useState("Welches Intervall ist das?");
     const [round, setRound] = useState(1);
     const [guesses, setGuesses] = useState<IntervalGuess[]>([]);
     const [roundEnded, setRoundEnded] = useState(false);
     const [timeAtLastInput, setTimeAtLastInput] = useState(new Date());
-    const [showWelcome, setShowWelcome] = useState(true);
+    const [showPageMenu, setShowPageMenu] = useState(true);
     const [mode, setMode] = useState(IntervalMode.simple);
-    const [intervalNames, setNoteNames] = useState<string[]>();
+    const [intervalNames, setIntervalNames] = useState<string[]>();
     const [started, setStarted] = useState(false);
-    const [numberOfNotesPerRound, setNumberOfNotesPerRound] = useState(10);
+    const [numberOfIntervalsPerRound, setNumberOfIntervalsPerRound] =
+        useState(10);
     const [noInputAllowed, setNoInputAllowed] = useState(false);
 
     useEffect(() => {
