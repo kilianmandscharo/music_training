@@ -1,4 +1,4 @@
-import { KEYS } from "../constants/constants";
+import { KEYS } from "../constants/keys";
 import { KeypadProps } from "../interfaces/interfaces";
 
 export default function Keypad({ handleInput, disabled }: KeypadProps) {

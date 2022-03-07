@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { useState } from "react";
-import { Mode, PageMenuProps } from "../interfaces/interfaces";
+import { PageMenuProps } from "../interfaces/interfaces";
 import Button from "./Button";
 import ModeButton from "./ModeButton";
 
-export default function Welcome({
+export default function PageMenu({
     title,
     description,
     startRound,

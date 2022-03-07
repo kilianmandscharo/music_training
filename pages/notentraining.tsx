@@ -10,7 +10,7 @@ import {
 import PageBody from "../components/PageBody";
 import Stats from "../components/Stats";
 import PageMenu from "../components/PageMenu";
-import { KEYS } from "../constants/constants";
+import { KEYS } from "../constants/keys";
 import { NoteGuess, NoteMode } from "../interfaces/interfaces";
 import ModeButton from "../components/ModeButton";
 

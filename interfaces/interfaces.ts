@@ -11,8 +11,10 @@ export interface PageMenuProps {
     description: string;
     startRound: () => void;
     setupRound: () => void;
-    changeMode: Dispatch<SetStateAction<NoteMode>>;
-    currentMode: NoteMode;
+    changeMode:
+        | Dispatch<SetStateAction<NoteMode>>
+        | Dispatch<SetStateAction<IntervalMode>>;
+    currentMode: NoteMode | IntervalMode;
     started: boolean;
     changeTotalRounds: Dispatch<SetStateAction<number>>;
     buttons: React.ReactNode;
