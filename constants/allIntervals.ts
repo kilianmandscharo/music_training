@@ -1,4 +1,6 @@
-const allIntervals = {
+import { diatonicIntervalNames, simpleIntervalNames } from "./intervalNames";
+
+export const allIntervalsByRootNote = {
     C: [
         "P1-C2-C2",
         "m2-C2-C#2",
@@ -181,4 +183,29 @@ const allIntervals = {
     ],
 };
 
-export default allIntervals;
+export const simpleIntervals: string[] = [];
+for (const intervals of Object.values(allIntervalsByRootNote)) {
+    for (const interval of intervals) {
+        const intervalName = interval.slice(0, 2);
+        if (simpleIntervalNames.includes(intervalName)) {
+            simpleIntervals.push(interval);
+        }
+    }
+}
+
+export const diatonicIntervals: string[] = [];
+for (const intervals of Object.values(allIntervalsByRootNote)) {
+    for (const interval of intervals) {
+        const intervalName = interval.slice(0, 2);
+        if (diatonicIntervalNames.includes(intervalName)) {
+            diatonicIntervals.push(interval);
+        }
+    }
+}
+
+export const allIntervals: string[] = [];
+for (const intervals of Object.values(allIntervalsByRootNote)) {
+    for (const interval of intervals) {
+        allIntervals.push(interval);
+    }
+}

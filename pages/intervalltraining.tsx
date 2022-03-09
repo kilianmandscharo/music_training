@@ -7,16 +7,18 @@ import ModeButton from "../components/ModeButton";
 import PageBody from "../components/PageBody";
 import PageMenu from "../components/PageMenu";
 import Stats from "../components/Stats";
-import allIntervals from "../constants/allIntervals";
 import {
-    diatonicIntervalNames,
-    simpleIntervalNames,
-} from "../constants/intervalNames";
+    allIntervals,
+    diatonicIntervals,
+    simpleIntervals,
+} from "../constants/allIntervals";
+import { intervalMapping } from "../constants/intervalNames";
+import { INTERVAL_KEYS } from "../constants/keys";
 import { IntervalGuess, IntervalMode } from "../interfaces/interfaces";
 
 const Intervalltraining: NextPage = () => {
     const [intervalClip, setIntervalClip] = useState(<div></div>);
-    const [currentInterval, setCurrentInterval] = useState<string>();
+    const [currentInterval, setCurrentInterval] = useState<string>("");
     const [message, setMessage] = useState("Welches Intervall ist das?");
     const [round, setRound] = useState(1);
     const [guesses, setGuesses] = useState<IntervalGuess[]>([]);
@@ -24,9 +26,8 @@ const Intervalltraining: NextPage = () => {
     const [timeAtLastInput, setTimeAtLastInput] = useState(new Date());
     const [showPageMenu, setShowPageMenu] = useState(true);
     const [mode, setMode] = useState(IntervalMode.simple);
-    const [intervalNames, setIntervalNames] = useState<string[]>(
-        getSimpleIntervals()
-    );
+    const [intervalNames, setIntervalNames] =
+        useState<string[]>(simpleIntervals);
     const [started, setStarted] = useState(false);
     const [numberOfIntervalsPerRound, setNumberOfIntervalsPerRound] =
         useState(10);
@@ -34,13 +35,13 @@ const Intervalltraining: NextPage = () => {
 
     useEffect(() => {
         if (mode === IntervalMode.simple) {
-            setIntervalNames(getSimpleIntervals());
+            setIntervalNames(simpleIntervals);
         }
         if (mode === IntervalMode.diatonic) {
-            setIntervalNames(getDiatonicIntervals());
+            setIntervalNames(diatonicIntervals);
         }
         if (mode === IntervalMode.all) {
-            setIntervalNames(getAllIntervals());
+            setIntervalNames(allIntervals);
         }
     }, [mode]);
 
@@ -59,42 +60,42 @@ const Intervalltraining: NextPage = () => {
                 <code>audio</code> element.
             </audio>
         );
-        setCurrentInterval(randomIntervalName);
+        setCurrentInterval(randomIntervalName.slice(0, 2));
         setIntervalClip(interval);
     };
 
-    // const handleInput = (inputNote: string) => {
-    //     if (noInputAllowed) {
-    //         return;
-    //     }
-    //     const [current, fullNoteName] = currentNote;
-    //     const correct = inputNote === current;
-    //     const now = new Date().getTime();
-    //     const time = (now - timeAtLastInput.getTime()) / 1000;
-    //     setGuesses([
-    //         ...guesses,
-    //         {
-    //             correct,
-    //             time,
-    //             correctNote: current,
-    //             noteGuessed: inputNote,
-    //             fullNoteName,
-    //         },
-    //     ]);
-    //     setMessage(correct ? "Correct" : "False");
-    //     setNoInputAllowed(true);
-    //     setTimeout(() => {
-    //         if (round === numberOfNotesPerRound) {
-    //             setRoundEnded(true);
-    //         } else {
-    //             setNoInputAllowed(false);
-    //             nextNote();
-    //             setTimeAtLastInput(new Date());
-    //             setMessage("Welche Note ist das?");
-    //             setRound((prev) => prev + 1);
-    //         }
-    //     }, 1000);
-    // };
+    const handleInput = (input: string) => {
+        if (noInputAllowed) {
+            return;
+        }
+        const correctInterval =
+            intervalMapping[currentInterval as keyof typeof intervalMapping];
+        const correct = input === correctInterval;
+        const now = new Date().getTime();
+        const time = (now - timeAtLastInput.getTime()) / 1000;
+        setGuesses([
+            ...guesses,
+            {
+                correct,
+                time,
+                correctInterval: currentInterval,
+                intervalGuessed: input,
+            },
+        ]);
+        setMessage(correct ? "Correct" : "False");
+        setNoInputAllowed(true);
+        setTimeout(() => {
+            if (round === numberOfIntervalsPerRound) {
+                setRoundEnded(true);
+            } else {
+                setNoInputAllowed(false);
+                nextInterval();
+                setTimeAtLastInput(new Date());
+                setMessage("Welches Intervall ist das?");
+                setRound((prev) => prev + 1);
+            }
+        }, 1000);
+    };
 
     const newRound = () => {
         nextInterval();
@@ -120,6 +121,7 @@ const Intervalltraining: NextPage = () => {
         setRoundEnded(false);
         setNoInputAllowed(false);
     };
+
     return (
         <>
             <Head>
@@ -142,10 +144,11 @@ const Intervalltraining: NextPage = () => {
                 <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
                     {intervalClip}
                 </div>
-                {/* <Keypad
+                <Keypad
                     handleInput={handleInput}
-                    disabled={showWelcome || roundEnded || noInputAllowed}
-                /> */}
+                    disabled={showPageMenu || roundEnded || noInputAllowed}
+                    keys={INTERVAL_KEYS}
+                />
                 <p className="mx-auto my-4 text-xl">
                     Runde {round}/{numberOfIntervalsPerRound}
                 </p>
@@ -163,7 +166,7 @@ const Intervalltraining: NextPage = () => {
                 )} */}
                 {showPageMenu && (
                     <PageMenu
-                        description="Lege die Anzahl der Intervalle pro Runde fest (1-99), die du identifizieren musst."
+                        description="Lege die Anzahl der Intervalle fest (1-99), die du pro Runde identifizieren musst."
                         title="Intervalltraining"
                         startRound={startRound}
                         setupRound={setupRound}
@@ -199,42 +202,6 @@ const Intervalltraining: NextPage = () => {
             </PageBody>
         </>
     );
-};
-
-const getSimpleIntervals = () => {
-    const simpleIntervals: string[] = [];
-    for (const intervals of Object.values(allIntervals)) {
-        for (const interval of intervals) {
-            const intervalName = interval.slice(0, 2);
-            if (simpleIntervalNames.includes(intervalName)) {
-                simpleIntervals.push(interval);
-            }
-        }
-    }
-    return simpleIntervals;
-};
-
-const getDiatonicIntervals = () => {
-    const diatonicIntervals: string[] = [];
-    for (const intervals of Object.values(allIntervals)) {
-        for (const interval of intervals) {
-            const intervalName = interval.slice(0, 2);
-            if (diatonicIntervalNames.includes(intervalName)) {
-                diatonicIntervals.push(interval);
-            }
-        }
-    }
-    return diatonicIntervals;
-};
-
-const getAllIntervals = () => {
-    const allIntervalNames: string[] = [];
-    for (const intervals of Object.values(allIntervals)) {
-        for (const interval of intervals) {
-            allIntervalNames.push(interval);
-        }
-    }
-    return allIntervalNames;
 };
 
 export default Intervalltraining;

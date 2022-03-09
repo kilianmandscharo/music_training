@@ -2,8 +2,9 @@ import React, { Dispatch, SetStateAction } from "react";
 
 // Component interfaces
 export interface KeypadProps {
-    handleInput: (inputNote: string) => void;
+    handleInput: (input: string) => void;
     disabled: boolean;
+    keys: string[];
 }
 
 export interface PageMenuProps {

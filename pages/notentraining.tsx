@@ -10,7 +10,7 @@ import {
 import PageBody from "../components/PageBody";
 import Stats from "../components/Stats";
 import PageMenu from "../components/PageMenu";
-import { KEYS } from "../constants/keys";
+import { NOTE_KEYS } from "../constants/keys";
 import { NoteGuess, NoteMode } from "../interfaces/interfaces";
 import ModeButton from "../components/ModeButton";
 
@@ -50,7 +50,7 @@ const Notentraining = () => {
 
     const handleKeyPress = (e: KeyboardEvent) => {
         const key = e.key.toUpperCase();
-        if (KEYS.includes(key)) {
+        if (NOTE_KEYS.includes(key)) {
             handleInput(key);
         }
     };
@@ -81,12 +81,12 @@ const Notentraining = () => {
         ]);
     };
 
-    const handleInput = (inputNote: string) => {
+    const handleInput = (input: string) => {
         if (noInputAllowed) {
             return;
         }
         const [current, fullNoteName] = currentNote;
-        const correct = inputNote === current;
+        const correct = input === current;
         const now = new Date().getTime();
         const time = (now - timeAtLastInput.getTime()) / 1000;
         setGuesses([
@@ -95,7 +95,7 @@ const Notentraining = () => {
                 correct,
                 time,
                 correctNote: current,
-                noteGuessed: inputNote,
+                noteGuessed: input,
                 fullNoteName,
             },
         ]);
@@ -167,6 +167,7 @@ const Notentraining = () => {
                 <Keypad
                     handleInput={handleInput}
                     disabled={showWelcome || roundEnded || noInputAllowed}
+                    keys={NOTE_KEYS}
                 />
                 <p className="mx-auto my-4 text-xl">
                     Runde {round}/{numberOfNotesPerRound}
@@ -185,8 +186,8 @@ const Notentraining = () => {
                 )}
                 {showWelcome && (
                     <PageMenu
-                        description="Lege die Anzahl der Noten pro Runde fest (1-99), die du im
-                    jeweiligen Notenschlüssel identifizieren musst."
+                        description="Lege die Anzahl der Noten fest (1-99), die du im
+                    jeweiligen Notenschlüssel pro Runde identifizieren musst."
                         title="Notentraining"
                         startRound={startRound}
                         setupRound={setupRound}
