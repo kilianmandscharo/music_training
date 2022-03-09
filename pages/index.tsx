@@ -23,18 +23,33 @@ const Home: NextPage = () => {
                 />
                 <link rel="shortcut icon" href="favicon.ico" />
             </Head>
-            <div className="text-white/90 mx-auto p-8 max-w-4xl grid justify-center">
-                <h1 className="text-5xl text-center font-header mb-10">Home</h1>
-                <Link href="/notentraining">
-                    <a className="text-center text-3xl font-body">
-                        Notentraining
-                    </a>
-                </Link>
-                <Link href="/intervalltraining">
-                    <a className="text-center text-3xl font-body">
-                        Intervalltraining
-                    </a>
-                </Link>
+            <div className="text-white/90 mx-auto p-8 max-w-4xl">
+                <h1 className="text-5xl text-center font-header">
+                    Musiktraining
+                </h1>
+                <p className="mb-20 mt-12">
+                    Herzlich Willkommen zum Musiktraining! Wähle im folgenden
+                    aus, was du trainieren möchtest. Beim Notentraining geht es
+                    darum, Noten im Violin- oder Bassschlüssel zu
+                    identifizieren. Beim Intervalltraining gilt es, verschiedene
+                    Intervalle mit dem Gehör zu erkennen. Viel Spaß dabei!
+                </p>
+                <div>
+                    <div className="bg-blue-300 sm:hover:bg-blue-400 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
+                        <Link href="/notentraining">
+                            <a className="text-center text-2xl font-body text-gray-800">
+                                Notentraining
+                            </a>
+                        </Link>
+                    </div>
+                    <div className="bg-blue-300 sm:hover:bg-blue-400 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
+                        <Link href="/intervalltraining">
+                            <a className="text-center text-2xl font-body text-gray-800">
+                                Intervalltraining
+                            </a>
+                        </Link>
+                    </div>
+                </div>
             </div>
         </>
     );
