@@ -22,6 +22,7 @@ import {
 import { INTERVAL_KEYS } from "../constants/keys";
 import { IntervalGuess, IntervalMode } from "../interfaces/interfaces";
 import IntervalStats from "../components/IntervalStats";
+import AudioIcon from "../components/AudioIcon";
 
 const Intervalltraining: NextPage = () => {
     const [intervalClip, setIntervalClip] = useState<HTMLAudioElement>();
@@ -41,10 +42,7 @@ const Intervalltraining: NextPage = () => {
     const [noInputAllowed, setNoInputAllowed] = useState(false);
     const [keepRootNote, setKeepRootNote] = useState(false);
     const [rootNote, setRootNote] = useState("C");
-
-    // useEffect(() => {
-    //     console.log(intervalNames);
-    // }, [intervalNames]);
+    const [playing, setPlaying] = useState(false);
 
     useEffect(() => {
         if (keepRootNote) {
@@ -70,7 +68,7 @@ const Intervalltraining: NextPage = () => {
         const interval = new Audio(`/intervals/${randomIntervalName}.mp3`);
         setCurrentInterval(randomIntervalName.slice(0, 2));
         setIntervalClip(interval);
-        interval.play();
+        return interval;
     };
 
     const handleInput = (input: string) => {
@@ -100,8 +98,9 @@ const Intervalltraining: NextPage = () => {
             if (round === numberOfIntervalsPerRound) {
                 setRoundEnded(true);
             } else {
+                const interval = nextInterval();
+                playInterval(interval);
                 setNoInputAllowed(false);
-                nextInterval();
                 setTimeAtLastInput(new Date());
                 setMessage("Welches Intervall ist das?");
                 setRound((prev) => prev + 1);
@@ -122,14 +121,12 @@ const Intervalltraining: NextPage = () => {
     const startRound = () => {
         setShowPageMenu(false);
         setStarted(true);
-        if (intervalClip) {
-            intervalClip.play();
-        }
+        const interval = nextInterval();
+        playInterval(interval);
     };
 
     const setupRound = () => {
         setRound(1);
-        nextInterval();
         setGuesses([]);
         setTimeAtLastInput(new Date());
         setMessage("Welches Intervall ist das?");
@@ -155,10 +152,13 @@ const Intervalltraining: NextPage = () => {
         return intervalsByRootNote;
     };
 
-    const playIntervalAgain = () => {
-        if (intervalClip) {
-            intervalClip.play();
-        }
+    const playInterval = (interval: HTMLAudioElement | undefined) => {
+        if (!interval) return;
+        interval.play();
+        setPlaying(true);
+        setTimeout(() => {
+            setPlaying(false);
+        }, 2600);
     };
 
     return (
@@ -180,9 +180,10 @@ const Intervalltraining: NextPage = () => {
             </Head>
             <PageBody>
                 <p className="text-xl">{message}</p>
-                <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
+                <div className="relative mx-auto flex flex-col gap-4 justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
+                    <AudioIcon playing={playing} />
                     <button
-                        onClick={playIntervalAgain}
+                        onClick={() => playInterval(intervalClip)}
                         className="bg-orange-300 py-2 px-6 rounded-md sm:hover:bg-orange-400 text-gray-800 transition-colors"
                     >
                         Nochmal abspielen
@@ -214,8 +215,6 @@ const Intervalltraining: NextPage = () => {
                         title="Intervalltraining"
                         startRound={startRound}
                         setupRound={setupRound}
-                        changeMode={setMode}
-                        currentMode={mode}
                         started={started}
                         changeTotalRounds={setNumberOfIntervalsPerRound}
                         buttons={
