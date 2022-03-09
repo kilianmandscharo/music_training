@@ -160,22 +160,28 @@ const Notentraining = () => {
                 <link rel="shortcut icon" href="favicon.ico" />
             </Head>
             <PageBody>
-                <p className="text-xl">{message}</p>
-                <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
-                    {noteComponent}
-                </div>
-                <Keypad
-                    handleInput={handleInput}
-                    disabled={showPageMenu || roundEnded || noInputAllowed}
-                    keys={NOTE_KEYS}
-                />
-                <p className="mx-auto my-4 text-xl">
-                    Runde {round}/{numberOfNotesPerRound}
-                </p>
-                <Button
-                    name="Zurück"
-                    handleClick={() => setShowPageMenu(true)}
-                />
+                {!showPageMenu && !roundEnded && (
+                    <>
+                        <p className="text-xl">{message}</p>
+                        <div className="mx-auto flex justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
+                            {noteComponent}
+                        </div>
+                        <Keypad
+                            handleInput={handleInput}
+                            disabled={
+                                showPageMenu || roundEnded || noInputAllowed
+                            }
+                            keys={NOTE_KEYS}
+                        />
+                        <p className="mx-auto my-4 text-xl">
+                            Runde {round}/{numberOfNotesPerRound}
+                        </p>
+                        <Button
+                            name="Zurück"
+                            handleClick={() => setShowPageMenu(true)}
+                        />
+                    </>
+                )}
                 {roundEnded && (
                     <Stats
                         guesses={guesses}

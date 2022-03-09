@@ -179,28 +179,34 @@ const Intervalltraining: NextPage = () => {
                 <link rel="shortcut icon" href="favicon.ico" />
             </Head>
             <PageBody>
-                <p className="text-xl">{message}</p>
-                <div className="relative mx-auto flex flex-col gap-4 justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
-                    <AudioIcon playing={playing} />
-                    <button
-                        onClick={() => playInterval(intervalClip)}
-                        className="bg-orange-300 py-2 px-6 rounded-md sm:hover:bg-orange-400 text-gray-800 transition-colors"
-                    >
-                        Nochmal abspielen
-                    </button>
-                </div>
-                <Keypad
-                    handleInput={handleInput}
-                    disabled={showPageMenu || roundEnded || noInputAllowed}
-                    keys={INTERVAL_KEYS}
-                />
-                <p className="mx-auto my-4 text-xl">
-                    Runde {round}/{numberOfIntervalsPerRound}
-                </p>
-                <Button
-                    name="Zurück"
-                    handleClick={() => setShowPageMenu(true)}
-                />
+                {!showPageMenu && !roundEnded && (
+                    <>
+                        <p className="text-xl">{message}</p>
+                        <div className="relative mx-auto flex flex-col gap-4 justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
+                            <AudioIcon playing={playing} />
+                            <button
+                                onClick={() => playInterval(intervalClip)}
+                                className="bg-orange-300 py-2 px-6 rounded-md sm:hover:bg-orange-400 text-gray-800 transition-colors"
+                            >
+                                Nochmal abspielen
+                            </button>
+                        </div>
+                        <Keypad
+                            handleInput={handleInput}
+                            disabled={
+                                showPageMenu || roundEnded || noInputAllowed
+                            }
+                            keys={INTERVAL_KEYS}
+                        />
+                        <p className="mx-auto my-4 text-xl">
+                            Runde {round}/{numberOfIntervalsPerRound}
+                        </p>
+                        <Button
+                            name="Zurück"
+                            handleClick={() => setShowPageMenu(true)}
+                        />
+                    </>
+                )}
                 {roundEnded && (
                     <IntervalStats
                         guesses={guesses}
