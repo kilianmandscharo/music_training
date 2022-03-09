@@ -78,7 +78,7 @@ export default function Stats({
 
     return (
         <div
-            className={`absolute top-0 left-0 right-0 bottom-0 bg-base-black flex flex-col gap-3 justify-around items-center py-4 animate-statsFadeIn ${
+            className={`absolute top-0 left-0 right-0 bg-base-black flex flex-col min-w-[21rem] gap-3 justify-around items-center py-4 animate-statsFadeIn ${
                 closing ? "animate-statsFadeOut" : ""
             }`}
         >
@@ -91,39 +91,46 @@ export default function Stats({
                     Durchschnittliche Zeit pro Note: {averageTime}s
                 </p>
             </div>
-            <div className="h-3/6 mt-8 overflow-scroll overflow-x-hidden px-2">
-                {guesses.map((guess, i) => (
-                    <p
-                        key={i}
-                        className={`text-sm text-gray-800 py-2 px-4 rounded-full mb-2 ${
-                            guess.correct ? "bg-green-400" : "bg-red-400"
-                        } sm:hover:bg-blue-300 transition-colors`}
-                        onMouseEnter={(e) =>
-                            handleMouseEnter(e, guess.fullNoteName)
-                        }
-                        onMouseLeave={handleMouseLeave}
-                        onClick={() => handleClick(guess.fullNoteName)}
-                    >
-                        Runde {i + 1}:{" "}
-                        {guess.correct
-                            ? `${guess.correctNote} war richtig`
-                            : `${guess.noteGuessed}, richtig war ${guess.correctNote}`}{" "}
-                        ––– Zeit: {roundOneDecimal(guess.time)} s
-                    </p>
-                ))}
+            <div className="mt-8 w-11/12 max-w-lg">
+                <div className="stats-grid mb-2 text-sm px-2">
+                    <p>Runde</p>
+                    <p>Geraten</p>
+                    <p>Richtig</p>
+                    <p>Zeit</p>
+                </div>
+                <div className="h-4/6 overflow-scroll overflow-x-hidden">
+                    {guesses.map((guess, i) => (
+                        <div
+                            key={i}
+                            className={`stats-grid text-xs text-gray-800 py-2 px-2 mb-1 rounded-md ${
+                                guess.correct ? "bg-green-400" : "bg-red-400"
+                            } sm:hover:bg-blue-300 transition-colors relative`}
+                            onClick={() => handleClick(guess.fullNoteName)}
+                            onMouseEnter={(e) =>
+                                handleMouseEnter(e, guess.fullNoteName)
+                            }
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <p>{i + 1}</p>
+                            <p>{guess.noteGuessed}</p>
+                            <p>{guess.correctNote}</p>
+                            <p>{roundOneDecimal(guess.time)}s</p>
+                        </div>
+                    ))}
+                </div>
             </div>
             <Button name="Neue Runde" handleClick={handleNewRound} />
             {hover && width >= 640 && (
                 <div
                     style={{ top: currentOffset - 100 }}
-                    className={`absolute right-0 flex justify-center items-center px-2 bg-white animate-appear rounded-md shadow-md`}
+                    className={`absolute right-0 flex justify-cente w-60 items-center px-2 bg-white animate-appear rounded-md shadow-md`}
                 >
                     {note}
                 </div>
             )}
             {clicked && width < 640 && (
                 <div
-                    className={`absolute flex justify-center items-center px-2 top-6 w-4/5 bg-white animate-appear rounded-md shadow-md`}
+                    className={`absolute flex justify-center items-center px-2 top-6 w-3/5 bg-white animate-appear rounded-md shadow-md`}
                     onClick={() => setClicked(false)}
                 >
                     {note}

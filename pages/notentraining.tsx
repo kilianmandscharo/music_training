@@ -22,7 +22,7 @@ const Notentraining = () => {
     const [guesses, setGuesses] = useState<NoteGuess[]>([]);
     const [roundEnded, setRoundEnded] = useState(false);
     const [timeAtLastInput, setTimeAtLastInput] = useState(new Date());
-    const [showWelcome, setShowWelcome] = useState(true);
+    const [showPageMenu, setShowPageMenu] = useState(true);
     const [mode, setMode] = useState(NoteMode.treble);
     const [noteNames, setNoteNames] = useState<string[]>(
         Object.keys(noteComponents).slice(21)
@@ -125,7 +125,7 @@ const Notentraining = () => {
     };
 
     const startRound = () => {
-        setShowWelcome(false);
+        setShowPageMenu(false);
         setStarted(true);
     };
 
@@ -166,7 +166,7 @@ const Notentraining = () => {
                 </div>
                 <Keypad
                     handleInput={handleInput}
-                    disabled={showWelcome || roundEnded || noInputAllowed}
+                    disabled={showPageMenu || roundEnded || noInputAllowed}
                     keys={NOTE_KEYS}
                 />
                 <p className="mx-auto my-4 text-xl">
@@ -174,7 +174,7 @@ const Notentraining = () => {
                 </p>
                 <Button
                     name="Zurück"
-                    handleClick={() => setShowWelcome(true)}
+                    handleClick={() => setShowPageMenu(true)}
                 />
                 {roundEnded && (
                     <Stats
@@ -184,15 +184,13 @@ const Notentraining = () => {
                         numberOfNotesPerRound={numberOfNotesPerRound}
                     />
                 )}
-                {showWelcome && (
+                {showPageMenu && (
                     <PageMenu
                         description="Lege die Anzahl der Noten fest (1-99), die du im
                     jeweiligen Notenschlüssel pro Runde identifizieren musst."
                         title="Notentraining"
                         startRound={startRound}
                         setupRound={setupRound}
-                        changeMode={setMode}
-                        currentMode={mode}
                         started={started}
                         changeTotalRounds={setNumberOfNotesPerRound}
                         buttons={

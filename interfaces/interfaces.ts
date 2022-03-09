@@ -12,10 +12,6 @@ export interface PageMenuProps {
     description: string;
     startRound: () => void;
     setupRound: () => void;
-    changeMode:
-        | Dispatch<SetStateAction<NoteMode>>
-        | Dispatch<SetStateAction<IntervalMode>>;
-    currentMode: NoteMode | IntervalMode;
     started: boolean;
     changeTotalRounds: Dispatch<SetStateAction<number>>;
     buttons: React.ReactNode;
@@ -48,6 +44,10 @@ export interface ButtonProps {
 
 export interface ToggleButtonProps {
     handleClick: () => void;
+}
+
+export interface AudioIconProps {
+    playing: boolean;
 }
 
 //Other

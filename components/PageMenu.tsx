@@ -2,15 +2,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { PageMenuProps } from "../interfaces/interfaces";
 import Button from "./Button";
-import ModeButton from "./ModeButton";
 
 export default function PageMenu({
     title,
     description,
     startRound,
     setupRound,
-    changeMode,
-    currentMode,
     started,
     changeTotalRounds,
     buttons,
@@ -58,7 +55,7 @@ export default function PageMenu({
 
     return (
         <div
-            className={`bg-base-black absolute top-0 right-0 bottom-0 left-0 p-12 flex flex-col justify-around items-center gap-6 text-white/90  ${
+            className={`bg-base-black absolute top-0 right-0 left-0 p-12 flex flex-col justify-around items-center gap-6 text-white/90  ${
                 animating
                     ? "animate-welcomeFadeOut"
                     : started

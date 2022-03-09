@@ -2,7 +2,7 @@ import { KeypadProps } from "../interfaces/interfaces";
 
 export default function Keypad({ handleInput, disabled, keys }: KeypadProps) {
     return (
-        <div className="flex flex-wrap justify-center items-center">
+        <div className="flex flex-wrap max-w-3xl justify-center items-center">
             {keys.map((letter, i) => (
                 <button
                     disabled={disabled}

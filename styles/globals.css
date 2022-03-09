@@ -16,6 +16,9 @@ body {
 
 body {
     background-color: #121212;
+    max-width: 1024px;
+    margin: 0 auto;
+    position: relative;
 }
 
 .bg-base-black {

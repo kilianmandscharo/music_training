@@ -56,7 +56,7 @@ export default function IntervalStats({
 
     return (
         <div
-            className={`absolute top-0 left-0 right-0 bottom-0 bg-base-black flex flex-col gap-3 justify-around items-center py-4 animate-statsFadeIn ${
+            className={`absolute top-0 left-0 right-0 bg-base-black min-w-[21rem] flex flex-col gap-3 justify-around items-center py-4 animate-statsFadeIn ${
                 closing ? "animate-statsFadeOut" : ""
             }`}
         >
@@ -70,33 +70,7 @@ export default function IntervalStats({
                     Durchschnittliche Zeit pro Intervall: {averageTime}s
                 </p>
             </div>
-            {/* <table className="h-3/6 mt-8 overflow-scroll overflow-x-hidden px-2">
-                <thead>
-                    <tr>
-                        <th scope="col">Runde</th>
-                        <th scope="col">Geraten</th>
-                        <th scope="col">Richtig</th>
-                        <th scope="col">Zeit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {guesses.map((guess, i) => (
-                        <tr
-                            key={i}
-                            className={`text-sm text-gray-800 py-2 px-4 rounded-full ${
-                                guess.correct ? "bg-green-400" : "bg-red-400"
-                            } sm:hover:bg-blue-300 transition-colors`}
-                            onClick={() => handleClick(guess.intervalAudio)}
-                        >
-                            <td>{i + 1}</td>
-                            <td>{guess.intervalGuessed}</td>
-                            <td>{guess.correctInterval}</td>
-                            <td>{roundOneDecimal(guess.time)}s</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table> */}
-            <div className="mt-8 w-11/12">
+            <div className="mt-8 w-11/12 max-w-lg">
                 <div className="stats-grid mb-2 text-sm px-2">
                     <p>Runde</p>
                     <p>Geraten</p>
@@ -117,7 +91,7 @@ export default function IntervalStats({
                             <p>{guess.correctInterval}</p>
                             <p>{roundOneDecimal(guess.time)}s</p>
                             <div className="absolute top-[0.45rem] right-[-0.2rem]">
-                                <AudioIcon />
+                                <AudioIcon playing={false} />
                             </div>
                         </div>
                     ))}

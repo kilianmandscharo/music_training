@@ -21,7 +21,7 @@ export default function ToggleButton({ handleClick }: ToggleButtonProps) {
             >
                 <div className="flex justify-around items-center">
                     <p
-                        className={`rounded-md ${
+                        className={`rounded-md px-2 ${
                             toggleState ? "text-orange-700" : ""
                         }`}
                     >
