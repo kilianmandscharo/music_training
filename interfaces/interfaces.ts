@@ -21,11 +21,18 @@ export interface PageMenuProps {
     buttons: React.ReactNode;
 }
 
-export interface StatsProps {
+export interface NoteStatsProps {
     guesses: NoteGuess[];
     newRound: () => void;
     roundEnded: boolean;
     numberOfNotesPerRound: number;
+}
+
+export interface IntervalStatsProps {
+    guesses: IntervalGuess[];
+    newRound: () => void;
+    roundEnded: boolean;
+    numberOfIntervalsPerRound: number;
 }
 
 export interface ModeButtonProps {
@@ -36,6 +43,10 @@ export interface ModeButtonProps {
 
 export interface ButtonProps {
     name: string;
+    handleClick: () => void;
+}
+
+export interface ToggleButtonProps {
     handleClick: () => void;
 }
 
@@ -52,6 +63,7 @@ export interface IntervalGuess {
     correctInterval: string;
     correct: boolean;
     time: number;
+    intervalAudio: HTMLAudioElement;
 }
 
 export enum NoteMode {

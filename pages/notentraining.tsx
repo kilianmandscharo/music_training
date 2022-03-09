@@ -8,7 +8,7 @@ import {
     noteDistributionSingle,
 } from "../components/Notes";
 import PageBody from "../components/PageBody";
-import Stats from "../components/Stats";
+import Stats from "../components/NoteStats";
 import PageMenu from "../components/PageMenu";
 import { NOTE_KEYS } from "../constants/keys";
 import { NoteGuess, NoteMode } from "../interfaces/interfaces";
@@ -99,7 +99,7 @@ const Notentraining = () => {
                 fullNoteName,
             },
         ]);
-        setMessage(correct ? "Correct" : "False");
+        setMessage(correct ? "Richtig" : "Falsch");
         setNoInputAllowed(true);
         setTimeout(() => {
             if (round === numberOfNotesPerRound) {

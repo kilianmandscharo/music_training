@@ -16,17 +16,17 @@ export const intervalNames = [
 
 export const intervalMapping = {
     P1: "Prime",
-    m2: "Kleine Sekund",
-    M2: "Große Sekunde",
-    m3: "Kleine Terz",
-    M3: "Große Terz",
-    P4: "Reine Quarte",
+    m2: "Kl. Sekunde",
+    M2: "Gr. Sekunde",
+    m3: "Kl. Terz",
+    M3: "Gr. Terz",
+    P4: "Quarte",
     TT: "Tritonus",
-    P5: "Reine Quinte",
-    m6: "Kleine Sexte",
-    M6: "Große Sexte",
-    m7: "Kleine Septime",
-    M7: "Große Septime",
+    P5: "Quinte",
+    m6: "Kl. Sexte",
+    M6: "Gr. Sexte",
+    m7: "Kl. Septime",
+    M7: "Gr. Septime",
     P8: "Oktave",
 };
 

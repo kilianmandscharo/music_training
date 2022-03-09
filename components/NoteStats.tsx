@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useWindowWidth from "../hooks/useWindowWidth";
-import { StatsProps } from "../interfaces/interfaces";
+import { NoteStatsProps } from "../interfaces/interfaces";
 import Button from "./Button";
 import { noteComponents } from "./Notes";
 
@@ -9,7 +9,7 @@ export default function Stats({
     newRound,
     roundEnded,
     numberOfNotesPerRound,
-}: StatsProps) {
+}: NoteStatsProps) {
     const [correctNotes, setCorrectNotes] = useState(0);
     const [averageTime, setAverageTime] = useState(0);
     const [note, setNote] = useState(<div></div>);
