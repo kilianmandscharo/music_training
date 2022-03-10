@@ -59,8 +59,6 @@ class Interval {
     }
 }
 
-window.AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-
 export class IntervalGenerator {
     context: AudioContext;
 

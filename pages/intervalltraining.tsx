@@ -16,8 +16,6 @@ import { IntervalGenerator } from "../fns/createRandomInterval";
 
 window.AudioContext = window.AudioContext || (window as any).webkitAudioContext;
 
-const intervalGenerator = new IntervalGenerator();
-
 const Intervalltraining: NextPage = () => {
     const [intervalBuffer, setIntervalBuffer] = useState<AudioBuffer>();
     const [currentInterval, setCurrentInterval] = useState<string>("");
@@ -35,6 +33,9 @@ const Intervalltraining: NextPage = () => {
     const [keepRootNote, setKeepRootNote] = useState(false);
     const [rootNote, setRootNote] = useState("C");
     const [playing, setPlaying] = useState(false);
+    const [intervalGenerator, setIntervalGenerator] = useState(
+        new IntervalGenerator()
+    );
 
     const nextInterval = async () => {
         const [intervalBuffer, intervalName] =
