@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Keypad from "../components/Keypad";
 import ModeButton from "../components/ModeButton";
@@ -33,9 +33,11 @@ const Intervalltraining: NextPage = () => {
     const [keepRootNote, setKeepRootNote] = useState(false);
     const [rootNote, setRootNote] = useState("C");
     const [playing, setPlaying] = useState(false);
-    const [intervalGenerator, setIntervalGenerator] = useState(
-        new IntervalGenerator()
-    );
+    const [intervalGenerator, setIntervalGenerator] = useState<any>();
+
+    useEffect(() => {
+        setIntervalGenerator(new IntervalGenerator());
+    }, []);
 
     const nextInterval = async () => {
         const [intervalBuffer, intervalName] =
