@@ -145,7 +145,7 @@ const Intervalltraining: NextPage = () => {
                             <AudioIcon playing={playing} />
                             <button
                                 onClick={() => playInterval(intervalBuffer)}
-                                className="bg-orange-300 py-2 px-6 rounded-md sm:hover:bg-orange-400 text-gray-800 transition-colors"
+                                className="bg-orange-300 py-2 px-6 rounded-md sm:hover:bg-orange-400 text-gray-800 transition-colors shadow-md"
                             >
                                 Nochmal abspielen
                             </button>

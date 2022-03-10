@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { intervalMapping } from "../constants/intervalNames";
 import { IntervalStatsProps } from "../interfaces/interfaces";
 import AudioIcon from "./AudioIcon";
 import Button from "./Button";
@@ -15,6 +14,7 @@ export default function IntervalStats({
     const [averageTime, setAverageTime] = useState(0);
     const [closing, setClosing] = useState(false);
     const [playing, setPlaying] = useState(false);
+    const [elementPlaying, setElementPlaying] = useState(-1);
 
     useEffect(() => {
         if (roundEnded) {
@@ -42,14 +42,16 @@ export default function IntervalStats({
         return Math.round((number + Number.EPSILON) * 10) / 10;
     };
 
-    const handleClick = (buffer: AudioBuffer) => {
+    const handleClick = (buffer: AudioBuffer, index: number) => {
         if (playing) {
             return;
         }
         playInterval(buffer);
         setPlaying(true);
+        setElementPlaying(index);
         setTimeout(() => {
             setPlaying(false);
+            setElementPlaying(-1);
         }, 2300);
     };
 
@@ -83,14 +85,18 @@ export default function IntervalStats({
                             className={`stats-grid text-xs text-gray-800 py-2 px-2 mb-1 rounded-md ${
                                 guess.correct ? "bg-green-400" : "bg-red-400"
                             } sm:hover:bg-blue-300 transition-colors relative`}
-                            onClick={() => handleClick(guess.intervalBuffer)}
+                            onClick={() => handleClick(guess.intervalBuffer, i)}
                         >
                             <p>{i + 1}</p>
                             <p>{guess.intervalGuessed}</p>
                             <p>{guess.correctInterval}</p>
                             <p>{roundOneDecimal(guess.time)}s</p>
                             <div className="absolute top-[0.45rem] right-[-0.2rem]">
-                                <AudioIcon playing={false} />
+                                <AudioIcon
+                                    playing={
+                                        elementPlaying === i ? true : false
+                                    }
+                                />
                             </div>
                         </div>
                     ))}
