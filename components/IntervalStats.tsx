@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { intervalMapping } from "../constants/intervalNames";
-import useWindowWidth from "../hooks/useWindowWidth";
 import { IntervalStatsProps } from "../interfaces/interfaces";
 import AudioIcon from "./AudioIcon";
 import Button from "./Button";
-import { noteComponents } from "./Notes";
 
 export default function IntervalStats({
     guesses,
     newRound,
     roundEnded,
     numberOfIntervalsPerRound,
+    playInterval,
 }: IntervalStatsProps) {
     const [correctIntervals, setCorrectIntervals] = useState(0);
     const [averageTime, setAverageTime] = useState(0);
@@ -43,11 +42,11 @@ export default function IntervalStats({
         return Math.round((number + Number.EPSILON) * 10) / 10;
     };
 
-    const handleClick = (audio: HTMLAudioElement) => {
+    const handleClick = (buffer: AudioBuffer) => {
         if (playing) {
             return;
         }
-        audio.play();
+        playInterval(buffer);
         setPlaying(true);
         setTimeout(() => {
             setPlaying(false);
@@ -84,7 +83,7 @@ export default function IntervalStats({
                             className={`stats-grid text-xs text-gray-800 py-2 px-2 mb-1 rounded-md ${
                                 guess.correct ? "bg-green-400" : "bg-red-400"
                             } sm:hover:bg-blue-300 transition-colors relative`}
-                            onClick={() => handleClick(guess.intervalAudio)}
+                            onClick={() => handleClick(guess.intervalBuffer)}
                         >
                             <p>{i + 1}</p>
                             <p>{guess.intervalGuessed}</p>

@@ -1,31 +1,23 @@
-import next, { NextPage } from "next";
+import { NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Button from "../components/Button";
 import Keypad from "../components/Keypad";
 import ModeButton from "../components/ModeButton";
 import PageBody from "../components/PageBody";
 import PageMenu from "../components/PageMenu";
-import Stats from "../components/NoteStats";
 import ToggleButton from "../components/ToggleButton";
-import {
-    allIntervals,
-    allIntervalsByRootNote,
-    diatonicIntervals,
-    simpleIntervals,
-} from "../constants/allIntervals";
-import {
-    diatonicIntervalNames,
-    intervalMapping,
-    simpleIntervalNames,
-} from "../constants/intervalNames";
+import { intervalFullNameMapping } from "../constants/intervalNames";
 import { INTERVAL_KEYS } from "../constants/keys";
 import { IntervalGuess, IntervalMode } from "../interfaces/interfaces";
 import IntervalStats from "../components/IntervalStats";
 import AudioIcon from "../components/AudioIcon";
+import { IntervalGenerator } from "../fns/createRandomInterval";
+
+const intervalGenerator = new IntervalGenerator();
 
 const Intervalltraining: NextPage = () => {
-    const [intervalClip, setIntervalClip] = useState<HTMLAudioElement>();
+    const [intervalBuffer, setIntervalBuffer] = useState<AudioBuffer>();
     const [currentInterval, setCurrentInterval] = useState<string>("");
     const [message, setMessage] = useState("Welches Intervall ist das?");
     const [round, setRound] = useState(1);
@@ -34,8 +26,6 @@ const Intervalltraining: NextPage = () => {
     const [timeAtLastInput, setTimeAtLastInput] = useState(new Date());
     const [showPageMenu, setShowPageMenu] = useState(true);
     const [mode, setMode] = useState(IntervalMode.simple);
-    const [intervalNames, setIntervalNames] =
-        useState<string[]>(simpleIntervals);
     const [started, setStarted] = useState(false);
     const [numberOfIntervalsPerRound, setNumberOfIntervalsPerRound] =
         useState(10);
@@ -44,31 +34,15 @@ const Intervalltraining: NextPage = () => {
     const [rootNote, setRootNote] = useState("C");
     const [playing, setPlaying] = useState(false);
 
-    useEffect(() => {
-        if (keepRootNote) {
-            setIntervalNames(getIntervalsByRootNote());
-        } else {
-            if (mode === IntervalMode.simple) {
-                setIntervalNames(simpleIntervals);
-            }
-            if (mode === IntervalMode.diatonic) {
-                setIntervalNames(diatonicIntervals);
-            }
-            if (mode === IntervalMode.all) {
-                setIntervalNames(allIntervals);
-            }
-        }
-    }, [mode, keepRootNote]);
-
-    const nextInterval = () => {
-        const randomIntervalIndex = Math.floor(
-            Math.random() * intervalNames.length
-        );
-        const randomIntervalName = intervalNames[randomIntervalIndex];
-        const interval = new Audio(`/intervals/${randomIntervalName}.mp3`);
-        setCurrentInterval(randomIntervalName.slice(0, 2));
-        setIntervalClip(interval);
-        return interval;
+    const nextInterval = async () => {
+        const [intervalBuffer, intervalName] =
+            await intervalGenerator.createRandomIntervalBuffer(
+                keepRootNote,
+                mode
+            );
+        setIntervalBuffer(intervalBuffer);
+        setCurrentInterval(intervalName);
+        return intervalBuffer;
     };
 
     const handleInput = (input: string) => {
@@ -76,11 +50,13 @@ const Intervalltraining: NextPage = () => {
             return;
         }
         const correctInterval =
-            intervalMapping[currentInterval as keyof typeof intervalMapping];
+            intervalFullNameMapping[
+                currentInterval as keyof typeof intervalFullNameMapping
+            ];
         const correct = input === correctInterval;
         const now = new Date().getTime();
         const time = (now - timeAtLastInput.getTime()) / 1000;
-        if (intervalClip) {
+        if (intervalBuffer) {
             setGuesses([
                 ...guesses,
                 {
@@ -88,17 +64,17 @@ const Intervalltraining: NextPage = () => {
                     time,
                     correctInterval,
                     intervalGuessed: input,
-                    intervalAudio: intervalClip,
+                    intervalBuffer,
                 },
             ]);
         }
         setMessage(correct ? "Richtig" : "Falsch");
         setNoInputAllowed(true);
-        setTimeout(() => {
+        setTimeout(async () => {
             if (round === numberOfIntervalsPerRound) {
                 setRoundEnded(true);
             } else {
-                const interval = nextInterval();
+                const interval = await nextInterval();
                 playInterval(interval);
                 setNoInputAllowed(false);
                 setTimeAtLastInput(new Date());
@@ -108,8 +84,9 @@ const Intervalltraining: NextPage = () => {
         }, 1000);
     };
 
-    const newRound = () => {
-        nextInterval();
+    const newRound = async () => {
+        const interval = await nextInterval();
+        playInterval(interval);
         setRound(1);
         setGuesses([]);
         setTimeAtLastInput(new Date());
@@ -118,10 +95,10 @@ const Intervalltraining: NextPage = () => {
         setNoInputAllowed(false);
     };
 
-    const startRound = () => {
+    const startRound = async () => {
         setShowPageMenu(false);
         setStarted(true);
-        const interval = nextInterval();
+        const interval = await nextInterval();
         playInterval(interval);
     };
 
@@ -134,31 +111,13 @@ const Intervalltraining: NextPage = () => {
         setNoInputAllowed(false);
     };
 
-    const getIntervalsByRootNote = () => {
-        const intervalsByRootNote =
-            allIntervalsByRootNote[
-                rootNote as keyof typeof allIntervalsByRootNote
-            ];
-        if (mode === IntervalMode.simple) {
-            return intervalsByRootNote.filter((interval) =>
-                simpleIntervalNames.includes(interval.slice(0, 2))
-            );
-        }
-        if (mode === IntervalMode.diatonic) {
-            return intervalsByRootNote.filter((interval) =>
-                diatonicIntervalNames.includes(interval.slice(0, 2))
-            );
-        }
-        return intervalsByRootNote;
-    };
-
-    const playInterval = (interval: HTMLAudioElement | undefined) => {
+    const playInterval = (interval: AudioBuffer | undefined) => {
         if (!interval) return;
-        interval.play();
+        intervalGenerator.play(interval);
         setPlaying(true);
         setTimeout(() => {
             setPlaying(false);
-        }, 2600);
+        }, 2300);
     };
 
     return (
@@ -185,7 +144,7 @@ const Intervalltraining: NextPage = () => {
                         <div className="relative mx-auto flex flex-col gap-4 justify-center items-center p-12 m-8 w-full bg-blue-300 rounded-md">
                             <AudioIcon playing={playing} />
                             <button
-                                onClick={() => playInterval(intervalClip)}
+                                onClick={() => playInterval(intervalBuffer)}
                                 className="bg-orange-300 py-2 px-6 rounded-md sm:hover:bg-orange-400 text-gray-800 transition-colors"
                             >
                                 Nochmal abspielen
@@ -213,6 +172,7 @@ const Intervalltraining: NextPage = () => {
                         newRound={newRound}
                         roundEnded={roundEnded}
                         numberOfIntervalsPerRound={numberOfIntervalsPerRound}
+                        playInterval={intervalGenerator.play}
                     />
                 )}
                 {showPageMenu && (

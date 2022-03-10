@@ -1,4 +1,4 @@
-export const intervalNames = [
+export const allIntervalNames = [
     "P1",
     "m2",
     "M2",
@@ -14,7 +14,20 @@ export const intervalNames = [
     "P8",
 ];
 
-export const intervalMapping = {
+export const simpleIntervalNames = ["P1", "M3", "P5", "P8"];
+
+export const diatonicIntervalNames = [
+    "P1",
+    "M2",
+    "M3",
+    "P4",
+    "P5",
+    "M6",
+    "M7",
+    "P8",
+];
+
+export const intervalFullNameMapping = {
     P1: "Prime",
     m2: "Kl. Sekunde",
     M2: "Gr. Sekunde",
@@ -30,15 +43,18 @@ export const intervalMapping = {
     P8: "Oktave",
 };
 
-export const simpleIntervalNames = ["P1", "M3", "P5", "P8"];
-
-export const diatonicIntervalNames = [
-    "P1",
-    "M2",
-    "M3",
-    "P4",
-    "P5",
-    "M6",
-    "M7",
-    "P8",
-];
+export const intervalDistanceMapping = {
+    P1: 0,
+    m2: 1,
+    M2: 2,
+    m3: 3,
+    M3: 4,
+    P4: 5,
+    TT: 6,
+    P5: 7,
+    m6: 8,
+    M6: 9,
+    m7: 10,
+    M7: 11,
+    P8: 12,
+};

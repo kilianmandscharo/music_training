@@ -29,6 +29,7 @@ export interface IntervalStatsProps {
     newRound: () => void;
     roundEnded: boolean;
     numberOfIntervalsPerRound: number;
+    playInterval: (buffer: AudioBuffer) => void;
 }
 
 export interface ModeButtonProps {
@@ -63,7 +64,7 @@ export interface IntervalGuess {
     correctInterval: string;
     correct: boolean;
     time: number;
-    intervalAudio: HTMLAudioElement;
+    intervalBuffer: AudioBuffer;
 }
 
 export enum NoteMode {
