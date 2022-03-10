@@ -14,6 +14,8 @@ import IntervalStats from "../components/IntervalStats";
 import AudioIcon from "../components/AudioIcon";
 import { IntervalGenerator } from "../fns/createRandomInterval";
 
+window.AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+
 const intervalGenerator = new IntervalGenerator();
 
 const Intervalltraining: NextPage = () => {
