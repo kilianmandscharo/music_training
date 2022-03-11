@@ -71,35 +71,41 @@ export default function IntervalStats({
                     Durchschnittliche Zeit pro Intervall: {averageTime}s
                 </p>
             </div>
-            <div className="mt-8 w-11/12 max-w-lg">
+            <div className="w-5/6 max-w-lg mt-8 mb-4">
                 <div className="stats-grid mb-2 text-sm px-2">
                     <p>Runde</p>
                     <p>Geraten</p>
                     <p>Richtig</p>
                     <p>Zeit</p>
                 </div>
-                <div className="h-4/6 overflow-scroll overflow-x-hidden">
-                    {guesses.map((guess, i) => (
-                        <div
-                            key={i}
-                            className={`stats-grid text-xs text-gray-800 py-2 px-2 mb-1 rounded-md ${
-                                guess.correct ? "bg-green-400" : "bg-red-400"
-                            } sm:hover:bg-blue-300 transition-colors relative`}
-                            onClick={() => handleClick(guess.intervalBuffer, i)}
-                        >
-                            <p>{i + 1}</p>
-                            <p>{guess.intervalGuessed}</p>
-                            <p>{guess.correctInterval}</p>
-                            <p>{roundOneDecimal(guess.time)}s</p>
-                            <div className="absolute top-[0.45rem] right-[-0.2rem]">
-                                <AudioIcon
-                                    playing={
-                                        elementPlaying === i ? true : false
-                                    }
-                                />
+                <div className="max-w-lg max-h-96 overflow-scroll overflow-x-hidden">
+                    <div>
+                        {guesses.map((guess, i) => (
+                            <div
+                                key={i}
+                                className={`stats-grid text-xs text-gray-800 py-2 px-2 mb-1 rounded-md ${
+                                    guess.correct
+                                        ? "bg-green-400"
+                                        : "bg-red-400"
+                                } sm:hover:bg-blue-300 transition-colors relative`}
+                                onClick={() =>
+                                    handleClick(guess.intervalBuffer, i)
+                                }
+                            >
+                                <p>{i + 1}</p>
+                                <p>{guess.intervalGuessed}</p>
+                                <p>{guess.correctInterval}</p>
+                                <p>{roundOneDecimal(guess.time)}s</p>
+                                <div className="absolute top-[0.45rem] right-[-0.2rem]">
+                                    <AudioIcon
+                                        playing={
+                                            elementPlaying === i ? true : false
+                                        }
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
             <Button name="Neue Runde" handleClick={handleNewRound} />

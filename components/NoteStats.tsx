@@ -91,46 +91,50 @@ export default function Stats({
                     Durchschnittliche Zeit pro Note: {averageTime}s
                 </p>
             </div>
-            <div className="mt-8 w-11/12 max-w-lg">
+            <div className="w-5/6 max-w-lg mt-8 mb-4">
                 <div className="stats-grid mb-2 text-sm px-2">
                     <p>Runde</p>
                     <p>Geraten</p>
                     <p>Richtig</p>
                     <p>Zeit</p>
                 </div>
-                <div className="h-4/6 overflow-scroll overflow-x-hidden">
-                    {guesses.map((guess, i) => (
-                        <div
-                            key={i}
-                            className={`stats-grid text-xs text-gray-800 py-2 px-2 mb-1 rounded-md ${
-                                guess.correct ? "bg-green-400" : "bg-red-400"
-                            } sm:hover:bg-blue-300 transition-colors relative`}
-                            onClick={() => handleClick(guess.fullNoteName)}
-                            onMouseEnter={(e) =>
-                                handleMouseEnter(e, guess.fullNoteName)
-                            }
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <p>{i + 1}</p>
-                            <p>{guess.noteGuessed}</p>
-                            <p>{guess.correctNote}</p>
-                            <p>{roundOneDecimal(guess.time)}s</p>
-                        </div>
-                    ))}
+                <div className="max-w-lg max-h-96 overflow-scroll overflow-x-hidden">
+                    <div>
+                        {guesses.map((guess, i) => (
+                            <div
+                                key={i}
+                                className={`stats-grid text-xs text-gray-800 py-2 px-2 mb-1 rounded-md ${
+                                    guess.correct
+                                        ? "bg-green-400"
+                                        : "bg-red-400"
+                                } sm:hover:bg-blue-300 transition-colors relative`}
+                                onClick={() => handleClick(guess.fullNoteName)}
+                                onMouseEnter={(e) =>
+                                    handleMouseEnter(e, guess.fullNoteName)
+                                }
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <p>{i + 1}</p>
+                                <p>{guess.noteGuessed}</p>
+                                <p>{guess.correctNote}</p>
+                                <p>{roundOneDecimal(guess.time)}s</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
             <Button name="Neue Runde" handleClick={handleNewRound} />
             {hover && width >= 640 && (
                 <div
                     style={{ top: currentOffset - 100 }}
-                    className={`absolute right-0 flex justify-cente w-60 items-center px-2 bg-white animate-appear rounded-md shadow-md`}
+                    className={`absolute right-0 flex justify-cente w-60 items-center px-2 bg-white animate-appear rounded-md shadow-md border-4 border-blue-300`}
                 >
                     {note}
                 </div>
             )}
             {clicked && width < 640 && (
                 <div
-                    className={`absolute flex justify-center items-center px-2 top-6 w-3/5 bg-white animate-appear rounded-md shadow-md`}
+                    className={`absolute flex justify-center items-center px-2 top-6 w-3/5 bg-white animate-appear rounded-md shadow-lg border-4 border-blue-300`}
                     onClick={() => setClicked(false)}
                 >
                     {note}
