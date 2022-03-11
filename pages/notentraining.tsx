@@ -172,7 +172,7 @@ const Notentraining = () => {
                                 showPageMenu || roundEnded || noInputAllowed
                             }
                             keys={NOTE_KEYS}
-                            mode={null}
+                            intervalNames={null}
                         />
                         <p className="mx-auto my-4 text-xl">
                             Runde {round}/{numberOfNotesPerRound}
