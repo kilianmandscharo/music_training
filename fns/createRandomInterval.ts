@@ -1,12 +1,5 @@
-import {
-    allIntervalNames,
-    diatonicIntervalNames,
-    getIntervalNamesFromMode,
-    intervalDistanceMapping,
-    simpleIntervalNames,
-} from "../constants/intervalNames";
+import { intervalDistanceMapping } from "../constants/intervalNames";
 import { ALL_NOTES, RootNote, ROOT_NOTES } from "../constants/noteNames";
-import { IntervalMode } from "../interfaces/interfaces";
 
 class Interval {
     from: string;
@@ -86,7 +79,11 @@ export class IntervalGenerator {
 
     // The following two functions are stripped down versions from here: https://github.com/jackedgson/crunker/
     concatNotes = (noteBuffers: [AudioBuffer, AudioBuffer]) => {
-        const interval = this.context.createBuffer(2, 48000 * 2, 48000);
+        const interval = this.context.createBuffer(
+            2,
+            noteBuffers[0].length + noteBuffers[1].length,
+            noteBuffers[0].sampleRate
+        );
         let offset = 0;
         for (const buffer of noteBuffers) {
             for (
