@@ -31,6 +31,12 @@ body {
     gap: 0.5rem;
 }
 
+.stats-headers-grid {
+    display: grid;
+    grid-template-columns: 17.5% 28% 28% 26.5%;
+    gap: 0.5rem;
+}
+
 a {
     color: inherit;
     text-decoration: none;

@@ -1,3 +1,5 @@
+import { IntervalMode } from "../interfaces/interfaces";
+
 export const allIntervalNames = [
     "P1",
     "m2",
@@ -41,6 +43,23 @@ export const intervalFullNameMapping = {
     m7: "Kl. Septime",
     M7: "Gr. Septime",
     P8: "Oktave",
+};
+
+export const getShortIntervalFromFullName = (interval: string) => {
+    return Object.keys(intervalFullNameMapping).find(
+        (key) =>
+            intervalFullNameMapping[
+                key as keyof typeof intervalFullNameMapping
+            ] === interval
+    );
+};
+
+export const getIntervalNamesFromMode = (mode: IntervalMode) => {
+    return mode === IntervalMode.simple
+        ? simpleIntervalNames
+        : mode === IntervalMode.diatonic
+        ? diatonicIntervalNames
+        : allIntervalNames;
 };
 
 export const intervalDistanceMapping = {

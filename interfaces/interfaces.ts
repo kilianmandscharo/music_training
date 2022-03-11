@@ -1,10 +1,12 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { RootNote, ROOT_NOTES } from "../constants/noteNames";
 
 // Component interfaces
 export interface KeypadProps {
     handleInput: (input: string) => void;
     disabled: boolean;
     keys: string[];
+    intervalNames: string[] | null;
 }
 
 export interface PageMenuProps {
@@ -45,6 +47,16 @@ export interface ButtonProps {
 
 export interface ToggleButtonProps {
     handleClick: () => void;
+    currentState: boolean;
+}
+
+export interface ExtendableMenuProps {
+    changeRootNote: Dispatch<SetStateAction<RootNote>>;
+    changeRootNoteStatic: () => void;
+    rootNoteStatic: boolean;
+    currentRootNote: RootNote;
+    currentIntervals: string[];
+    changeIntervals: (interval: string) => void;
 }
 
 export interface AudioIconProps {

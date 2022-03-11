@@ -6,13 +6,19 @@ import Keypad from "../components/Keypad";
 import ModeButton from "../components/ModeButton";
 import PageBody from "../components/PageBody";
 import PageMenu from "../components/PageMenu";
-import ToggleButton from "../components/ToggleButton";
-import { intervalFullNameMapping } from "../constants/intervalNames";
+import {
+    allIntervalNames,
+    diatonicIntervalNames,
+    intervalFullNameMapping,
+    simpleIntervalNames,
+} from "../constants/intervalNames";
 import { INTERVAL_KEYS } from "../constants/keys";
 import { IntervalGuess, IntervalMode } from "../interfaces/interfaces";
 import IntervalStats from "../components/IntervalStats";
 import AudioIcon from "../components/AudioIcon";
 import { IntervalGenerator } from "../fns/createRandomInterval";
+import ExtendableMenu from "../components/ExtendableMenu";
+import { RootNote } from "../constants/noteNames";
 
 const Intervalltraining: NextPage = () => {
     const [intervalBuffer, setIntervalBuffer] = useState<AudioBuffer>();
@@ -29,20 +35,44 @@ const Intervalltraining: NextPage = () => {
         useState(10);
     const [noInputAllowed, setNoInputAllowed] = useState(false);
     const [keepRootNote, setKeepRootNote] = useState(false);
-    const [rootNote, setRootNote] = useState("C");
+    const [rootNote, setRootNote] = useState<RootNote>("C2");
     const [playing, setPlaying] = useState(false);
     const [intervalGenerator, setIntervalGenerator] = useState<any>();
+    const [intervalNames, setIntervalNames] = useState(simpleIntervalNames);
+
+    useEffect(() => {
+        setIntervalNames(
+            mode === IntervalMode.simple
+                ? simpleIntervalNames
+                : mode === IntervalMode.diatonic
+                ? diatonicIntervalNames
+                : allIntervalNames
+        );
+    }, [mode]);
 
     useEffect(() => {
         const intervalGenerator = new IntervalGenerator();
         setIntervalGenerator(intervalGenerator);
     }, []);
 
+    const changeIntervalNames = (interval: string) => {
+        let newIntervalNames = [...intervalNames];
+        if (newIntervalNames.includes(interval)) {
+            newIntervalNames = newIntervalNames.filter(
+                (currInterval) => currInterval !== interval
+            );
+        } else {
+            newIntervalNames.push(interval);
+        }
+        setIntervalNames(newIntervalNames);
+    };
+
     const nextInterval = async () => {
         const [intervalBuffer, intervalName] =
             await intervalGenerator.createRandomIntervalBuffer(
                 keepRootNote,
-                mode
+                intervalNames,
+                rootNote
             );
         setIntervalBuffer(intervalBuffer);
         setCurrentInterval(intervalName);
@@ -121,7 +151,7 @@ const Intervalltraining: NextPage = () => {
         setPlaying(true);
         setTimeout(() => {
             setPlaying(false);
-        }, 2300);
+        }, 2100);
     };
 
     return (
@@ -150,6 +180,7 @@ const Intervalltraining: NextPage = () => {
                             <button
                                 onClick={() => playInterval(intervalBuffer)}
                                 className="bg-orange-300 py-2 px-6 rounded-md sm:hover:bg-orange-400 text-gray-800 transition-colors shadow-md"
+                                disabled={playing}
                             >
                                 Nochmal abspielen
                             </button>
@@ -160,6 +191,7 @@ const Intervalltraining: NextPage = () => {
                                 showPageMenu || roundEnded || noInputAllowed
                             }
                             keys={INTERVAL_KEYS}
+                            intervalNames={intervalNames}
                         />
                         <p className="mx-auto my-4 text-xl">
                             Runde {round}/{numberOfIntervalsPerRound}
@@ -208,10 +240,15 @@ const Intervalltraining: NextPage = () => {
                                     changeMode={() => setMode(IntervalMode.all)}
                                     highlighted={mode === IntervalMode.all}
                                 />
-                                <ToggleButton
-                                    handleClick={() =>
+                                <ExtendableMenu
+                                    changeRootNoteStatic={() =>
                                         setKeepRootNote(!keepRootNote)
                                     }
+                                    changeRootNote={setRootNote}
+                                    rootNoteStatic={keepRootNote}
+                                    currentRootNote={rootNote}
+                                    currentIntervals={intervalNames}
+                                    changeIntervals={changeIntervalNames}
                                 />
                             </>
                         }

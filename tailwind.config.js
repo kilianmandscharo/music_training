@@ -21,6 +21,14 @@ module.exports = {
         "fadeIn": {
           "0%": {top: 20, opacity: 0},
           "100%": {top: 0, opacity: 1},
+        },
+        "rotateOpen": { 
+          "0%": {transform: "rotate(0deg)"},
+          "100%": {transform: "rotate(-90deg)"},
+        }, 
+        "rotateClose": { 
+          "0%": {transform: "rotate(-90deg)"},
+          "100%": {transform: "rotate(0deg)"},
         }
       },
       animation: {
@@ -29,6 +37,8 @@ module.exports = {
         "welcomeFadeIn": "fadeIn 0.2s linear 1",
         "statsFadeIn": "fadeIn 0.2s linear 1",
         "statsFadeOut": "fadeOut 0.2s linear 1",
+        "rotateOpen": "rotateOpen 0.1s linear 1 forwards",
+        "rotateClose": "rotateClose 0.1s linear 1 forwards",
       }
     },
   },

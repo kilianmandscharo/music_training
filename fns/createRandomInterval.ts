@@ -1,52 +1,12 @@
 import {
     allIntervalNames,
     diatonicIntervalNames,
+    getIntervalNamesFromMode,
     intervalDistanceMapping,
     simpleIntervalNames,
 } from "../constants/intervalNames";
+import { ALL_NOTES, RootNote, ROOT_NOTES } from "../constants/noteNames";
 import { IntervalMode } from "../interfaces/interfaces";
-
-const ALL_NOTES = [
-    "C2",
-    "Csharp2",
-    "D2",
-    "Dsharp2",
-    "E2",
-    "F2",
-    "Fsharp2",
-    "G2",
-    "Gsharp2",
-    "A2",
-    "Bb2",
-    "B2",
-    "C3",
-    "Csharp3",
-    "D3",
-    "Dsharp3",
-    "E3",
-    "F3",
-    "Fsharp3",
-    "G3",
-    "Gsharp3",
-    "A3",
-    "Bb3",
-    "B3",
-];
-
-const ROOT_NOTES = [
-    "C2",
-    "Csharp2",
-    "D2",
-    "Dsharp2",
-    "E2",
-    "F2",
-    "Fsharp2",
-    "G2",
-    "Gsharp2",
-    "A2",
-    "Bb2",
-    "B2",
-];
 
 class Interval {
     from: string;
@@ -75,10 +35,14 @@ export class IntervalGenerator {
 
     createRandomIntervalBuffer = async (
         staticRootNote: boolean,
-        mode: IntervalMode
+        intervalNames: string[],
+        currentRootNote: RootNote
     ): Promise<[AudioBuffer, string]> => {
-        const interval = this.createRandomInterval(staticRootNote, mode);
-
+        const interval = this.createRandomInterval(
+            staticRootNote,
+            intervalNames,
+            currentRootNote
+        );
         const intervalBuffer = await this.fetchNotes([
             `/notes_mp3/${interval.from}.mp3`,
             `/notes_mp3/${interval.to}.mp3`,
@@ -89,16 +53,14 @@ export class IntervalGenerator {
         return [intervalBuffer, interval.name];
     };
 
-    createRandomInterval = (staticRootNote: boolean, mode: IntervalMode) => {
+    createRandomInterval = (
+        staticRootNote: boolean,
+        intervalNames: string[],
+        currentRootNote: RootNote
+    ) => {
         const [rootNote, rootNoteIndex] = staticRootNote
-            ? ["C2", 0]
+            ? [currentRootNote, ROOT_NOTES.indexOf(currentRootNote)]
             : this.getRandomRootNoteAndIndex();
-        const intervalNames =
-            mode === IntervalMode.simple
-                ? simpleIntervalNames
-                : mode === IntervalMode.diatonic
-                ? diatonicIntervalNames
-                : allIntervalNames;
         const [intervalName, intervalDistance] =
             this.getRandomIntervalNameAndDistance(intervalNames);
         const secondNote = ALL_NOTES[rootNoteIndex + intervalDistance];

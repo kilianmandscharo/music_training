@@ -1,35 +1,30 @@
 import { useState } from "react";
 import { ToggleButtonProps } from "../interfaces/interfaces";
-import Button from "./Button";
 
-export default function ToggleButton({ handleClick }: ToggleButtonProps) {
-    const [toggleState, setToggleState] = useState(false);
-
-    const toggle = () => {
-        handleClick();
-        setToggleState(!toggleState);
-    };
-
+export default function ToggleButton({
+    handleClick,
+    currentState,
+}: ToggleButtonProps) {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col max-w-[12rem] mx-auto">
             <p className="text-center text-sm pb-2">
                 Gleichen Grundton beibehalten
             </p>
             <button
-                onClick={toggle}
-                className="bg-blue-300 py-2 px-6 rounded-md sm:hover:bg-blue-400 text-gray-800 transition-colors"
+                onClick={handleClick}
+                className="bg-blue-300 py-2 px-4 rounded-md sm:hover:bg-blue-400 text-gray-800 transition-colors"
             >
                 <div className="flex justify-around items-center">
                     <p
                         className={`rounded-md px-2 ${
-                            toggleState ? "text-orange-700" : ""
+                            currentState ? "text-orange-700" : ""
                         }`}
                     >
                         Ja
                     </p>
                     <p
                         className={`rounded-md ${
-                            !toggleState ? "text-orange-700" : ""
+                            !currentState ? "text-orange-700" : ""
                         }`}
                     >
                         Nein
