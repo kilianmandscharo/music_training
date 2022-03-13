@@ -9,8 +9,8 @@ export const ALL_NOTES = [
     "G2",
     "Gsharp2",
     "A2",
-    "Bb2",
     "B2",
+    "H2",
     "C3",
     "Csharp3",
     "D3",
@@ -21,8 +21,8 @@ export const ALL_NOTES = [
     "G3",
     "Gsharp3",
     "A3",
-    "Bb3",
     "B3",
+    "H3",
 ];
 
 export const ROOT_NOTES = [
@@ -36,8 +36,8 @@ export const ROOT_NOTES = [
     "G2",
     "Gsharp2",
     "A2",
-    "Bb2",
     "B2",
+    "H2",
 ] as const;
 
 export type RootNote = typeof ROOT_NOTES[number];
