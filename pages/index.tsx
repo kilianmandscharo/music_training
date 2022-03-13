@@ -38,20 +38,20 @@ const Home: NextPage = () => {
                     Intervalle mit dem Gehör zu erkennen. Viel Spaß dabei!
                 </p>
                 <div>
-                    <div className="bg-blue-300 sm:hover:bg-blue-400 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
-                        <Link href="/notentraining">
-                            <a className="text-center text-2xl font-body text-gray-800">
+                    <Link href="/notentraining">
+                        <div className="bg-blue-300 sm:hover:bg-blue-400 border-4 border-orange-300 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
+                            <a className="text-center text-xl font-body text-gray-800">
                                 Notentraining
                             </a>
-                        </Link>
-                    </div>
-                    <div className="bg-blue-300 sm:hover:bg-blue-400 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
-                        <Link href="/intervalltraining">
-                            <a className="text-center text-2xl font-body text-gray-800">
+                        </div>
+                    </Link>
+                    <Link href="/intervalltraining">
+                        <div className="bg-blue-300 sm:hover:bg-blue-400 border-4 border-orange-300 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
+                            <a className="text-center text-xl font-body text-gray-800">
                                 Intervalltraining
                             </a>
-                        </Link>
-                    </div>
+                        </div>
+                    </Link>
                 </div>
             </div>
         </>
