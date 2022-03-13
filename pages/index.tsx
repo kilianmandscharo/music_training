@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import IntervalIcon from "../components/IntervalIcon";
 
 const Home: NextPage = () => {
     return (
@@ -24,9 +25,11 @@ const Home: NextPage = () => {
                 <link rel="shortcut icon" href="favicon.ico" />
             </Head>
             <div className="text-white/90 mx-auto p-8 max-w-4xl">
-                <h1 className="text-5xl text-center font-header">
-                    Musiktraining
-                </h1>
+                <header className="flex justify-around items-center gap-4">
+                    <h1 className="text-5xl text-center font-header text-shadow-orange">
+                        Musiktraining
+                    </h1>
+                </header>
                 <p className="mb-20 mt-12">
                     Herzlich Willkommen zum Musiktraining! Wähle im folgenden
                     aus, was du trainieren möchtest. Beim Notentraining geht es

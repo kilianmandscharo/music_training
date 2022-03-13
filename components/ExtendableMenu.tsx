@@ -28,7 +28,7 @@ export default function ExtendableMenu({
         : "animate-rotateClose";
 
     return (
-        <div className="border-y-2 border-y-white/70 flex flex-col py-3 gap-6">
+        <div className="border-y-2 border-y-white/70 flex flex-col py-3 gap-6 w-72">
             <div className="relative flex flex-col justify-center">
                 <button
                     onClick={handleClick}

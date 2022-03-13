@@ -26,7 +26,7 @@ export default function IntervalStats({
         setClosing(true);
         setTimeout(() => {
             newRound();
-        }, 200);
+        }, 180);
     };
 
     const calculateStats = () => {
