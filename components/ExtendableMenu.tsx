@@ -65,7 +65,7 @@ export default function ExtendableMenu({
                                 <button
                                     key={note}
                                     disabled={!rootNoteStatic}
-                                    className={`disabled:opacity-40 disabled:pointer-events-none p-2 m-1 text-sm rounded-md bg-blue-300 hover:bg-blue-400 ${
+                                    className={`disabled:opacity-40 disabled:pointer-events-none p-2 m-1 text-sm rounded-md bg-blue-300 sm:hover:bg-blue-400 ${
                                         note === currentRootNote
                                             ? "text-orange-700"
                                             : "text-gray-800"
@@ -85,7 +85,7 @@ export default function ExtendableMenu({
                             {allIntervalNames.map((interval) => (
                                 <button
                                     key={interval}
-                                    className={`disabled:opacity-40 disabled:pointer-events-none p-2 m-1 text-sm rounded-md bg-blue-300 hover:bg-blue-400 ${
+                                    className={`disabled:opacity-40 disabled:pointer-events-none p-2 m-1 text-sm rounded-md bg-blue-300 sm:hover:bg-blue-400 ${
                                         currentIntervals.includes(interval)
                                             ? "text-orange-700"
                                             : "text-gray-800"

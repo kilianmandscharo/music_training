@@ -23,7 +23,7 @@ export default function Keypad({
                     disabled={determineButtonState(key)}
                     key={i}
                     onClick={() => handleInput(key)}
-                    className="disabled:opacity-40 disabled:pointer-events-none m-2 bg-gray-700 min-w-[5rem] p-2 rounded-lg hover:bg-pink-400 transition-colors"
+                    className="disabled:opacity-40 disabled:pointer-events-none m-2 bg-gray-700 min-w-[5rem] p-2 rounded-lg sm:hover:bg-pink-300 transition-colors"
                 >
                     {key}
                 </button>
