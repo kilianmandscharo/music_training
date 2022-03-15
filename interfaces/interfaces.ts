@@ -46,8 +46,11 @@ export interface ButtonProps {
 }
 
 export interface ToggleButtonProps {
+    description: string;
     handleClick: () => void;
     currentState: boolean;
+    left: string;
+    right: string;
 }
 
 export interface ExtendableMenuProps {
@@ -57,6 +60,8 @@ export interface ExtendableMenuProps {
     currentRootNote: RootNote;
     currentIntervals: string[];
     changeIntervals: (interval: string) => void;
+    currentIntervalDirection: IntervalDirection;
+    changeCurrentIntervalDirection: () => void;
 }
 
 export interface AudioIconProps {
@@ -78,6 +83,8 @@ export interface IntervalGuess {
     time: number;
     intervalBuffer: AudioBuffer;
 }
+
+export type IntervalDirection = "asc" | "desc";
 
 export enum NoteMode {
     treble,

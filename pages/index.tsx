@@ -39,14 +39,14 @@ const Home: NextPage = () => {
                 </p>
                 <div>
                     <Link href="/notentraining">
-                        <div className="bg-blue-300 sm:hover:bg-blue-400 border-4 border-orange-300 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
+                        <div className="bg-blue-300 sm:hover:bg-blue-400 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
                             <a className="text-center text-xl font-body text-gray-800">
                                 Notentraining
                             </a>
                         </div>
                     </Link>
                     <Link href="/intervalltraining">
-                        <div className="bg-blue-300 sm:hover:bg-blue-400 border-4 border-orange-300 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
+                        <div className="bg-blue-300 sm:hover:bg-blue-400 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
                             <a className="text-center text-xl font-body text-gray-800">
                                 Intervalltraining
                             </a>

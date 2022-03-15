@@ -1,5 +1,6 @@
 import { intervalDistanceMapping } from "../constants/intervalNames";
 import { ALL_NOTES, RootNote, ROOT_NOTES } from "../constants/noteNames";
+import { IntervalDirection } from "../interfaces/interfaces";
 
 class Interval {
     from: string;
@@ -29,7 +30,8 @@ export class IntervalGenerator {
     createRandomIntervalBuffer = async (
         staticRootNote: boolean,
         intervalNames: string[],
-        currentRootNote: RootNote
+        currentRootNote: RootNote,
+        direction: IntervalDirection
     ): Promise<[AudioBuffer, string]> => {
         const interval = this.createRandomInterval(
             staticRootNote,
@@ -41,7 +43,10 @@ export class IntervalGenerator {
             `/notes_mp3/${interval.to}.mp3`,
         ]).then((res) => {
             const [rootNoteBuffer, secondNoteBuffer] = res;
-            return this.concatNotes([rootNoteBuffer, secondNoteBuffer]);
+            return this.concatNotes(
+                [rootNoteBuffer, secondNoteBuffer],
+                direction
+            );
         });
         return [intervalBuffer, interval.name];
     };
@@ -78,14 +83,21 @@ export class IntervalGenerator {
     };
 
     // The following two functions are stripped down versions from here: https://github.com/jackedgson/crunker/
-    concatNotes = (noteBuffers: [AudioBuffer, AudioBuffer]) => {
+    concatNotes = (
+        noteBuffers: [AudioBuffer, AudioBuffer],
+        direction: IntervalDirection
+    ) => {
         const interval = this.context.createBuffer(
             2,
             noteBuffers[0].length + noteBuffers[1].length,
             noteBuffers[0].sampleRate
         );
         let offset = 0;
-        for (const buffer of noteBuffers) {
+        const buffers =
+            direction === "asc"
+                ? noteBuffers
+                : [noteBuffers[1], noteBuffers[0]];
+        for (const buffer of buffers) {
             for (
                 let channel = 0;
                 channel < buffer.numberOfChannels;

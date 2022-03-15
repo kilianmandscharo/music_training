@@ -13,7 +13,11 @@ import {
     simpleIntervalNames,
 } from "../constants/intervalNames";
 import { INTERVAL_KEYS } from "../constants/keys";
-import { IntervalGuess, IntervalMode } from "../interfaces/interfaces";
+import {
+    IntervalDirection,
+    IntervalGuess,
+    IntervalMode,
+} from "../interfaces/interfaces";
 import IntervalStats from "../components/IntervalStats";
 import AudioIcon from "../components/AudioIcon";
 import { IntervalGenerator } from "../fns/createRandomInterval";
@@ -21,24 +25,31 @@ import ExtendableMenu from "../components/ExtendableMenu";
 import { RootNote } from "../constants/noteNames";
 
 const Intervalltraining: NextPage = () => {
+    //Interval
     const [intervalBuffer, setIntervalBuffer] = useState<AudioBuffer>();
     const [currentInterval, setCurrentInterval] = useState<string>("");
+    const [intervalGenerator, setIntervalGenerator] = useState<any>();
+    const [playing, setPlaying] = useState(false);
+
+    //Game process
     const [message, setMessage] = useState("Welches Intervall ist das?");
     const [round, setRound] = useState(1);
-    const [guesses, setGuesses] = useState<IntervalGuess[]>([]);
-    const [roundEnded, setRoundEnded] = useState(false);
     const [timeAtLastInput, setTimeAtLastInput] = useState(new Date());
-    const [showPageMenu, setShowPageMenu] = useState(true);
-    const [mode, setMode] = useState(IntervalMode.simple);
-    const [started, setStarted] = useState(false);
-    const [numberOfIntervalsPerRound, setNumberOfIntervalsPerRound] =
-        useState(10);
     const [noInputAllowed, setNoInputAllowed] = useState(false);
+    const [started, setStarted] = useState(false);
+    const [roundEnded, setRoundEnded] = useState(false);
+    const [guesses, setGuesses] = useState<IntervalGuess[]>([]);
+
+    // Settings
+    const [showPageMenu, setShowPageMenu] = useState(true);
+    const [intervalNames, setIntervalNames] = useState(simpleIntervalNames);
+    const [mode, setMode] = useState(IntervalMode.simple);
     const [keepRootNote, setKeepRootNote] = useState(false);
     const [rootNote, setRootNote] = useState<RootNote>("C2");
-    const [playing, setPlaying] = useState(false);
-    const [intervalGenerator, setIntervalGenerator] = useState<any>();
-    const [intervalNames, setIntervalNames] = useState(simpleIntervalNames);
+    const [numberOfIntervalsPerRound, setNumberOfIntervalsPerRound] =
+        useState(10);
+    const [intervalDirection, setIntervalDirection] =
+        useState<IntervalDirection>("asc");
 
     useEffect(() => {
         setIntervalNames(
@@ -72,7 +83,8 @@ const Intervalltraining: NextPage = () => {
             await intervalGenerator.createRandomIntervalBuffer(
                 keepRootNote,
                 intervalNames,
-                rootNote
+                rootNote,
+                intervalDirection
             );
         setIntervalBuffer(intervalBuffer);
         setCurrentInterval(intervalName);
@@ -249,6 +261,14 @@ const Intervalltraining: NextPage = () => {
                                     currentRootNote={rootNote}
                                     currentIntervals={intervalNames}
                                     changeIntervals={changeIntervalNames}
+                                    currentIntervalDirection={intervalDirection}
+                                    changeCurrentIntervalDirection={() =>
+                                        setIntervalDirection(
+                                            intervalDirection === "asc"
+                                                ? "desc"
+                                                : "asc"
+                                        )
+                                    }
                                 />
                             </>
                         }

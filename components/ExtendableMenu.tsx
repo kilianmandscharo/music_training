@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { allIntervalNames } from "../constants/intervalNames";
 import { parseNoteName, ROOT_NOTES } from "../constants/noteNames";
 import { ExtendableMenuProps } from "../interfaces/interfaces";
-import Button from "./Button";
 import ToggleButton from "./ToggleButton";
 
 export default function ExtendableMenu({
@@ -12,6 +11,8 @@ export default function ExtendableMenu({
     currentRootNote,
     currentIntervals,
     changeIntervals,
+    currentIntervalDirection,
+    changeCurrentIntervalDirection,
 }: ExtendableMenuProps) {
     const [extended, setExtended] = useState(false);
     const [extendedOnce, setExtendedOnce] = useState(false);
@@ -53,8 +54,11 @@ export default function ExtendableMenu({
             {extended && (
                 <>
                     <ToggleButton
+                        description="Gleichen Grundton beibehalten"
                         handleClick={changeRootNoteStatic}
                         currentState={rootNoteStatic}
+                        left="Ja"
+                        right="Nein"
                     />
                     <div>
                         <p className="text-center text-sm pb-2">
@@ -97,6 +101,15 @@ export default function ExtendableMenu({
                             ))}
                         </div>
                     </div>
+                    <ToggleButton
+                        description="Intervallrichtung"
+                        currentState={
+                            currentIntervalDirection === "asc" ? true : false
+                        }
+                        handleClick={changeCurrentIntervalDirection}
+                        left="Aufsteigend"
+                        right="Absteigend"
+                    />
                 </>
             )}
         </div>
