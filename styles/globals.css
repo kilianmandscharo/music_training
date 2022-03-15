@@ -37,8 +37,7 @@ body {
     gap: 0.5rem;
 }
 
-.text-shadow-orange {
-    /* text-shadow: 2px 2px #fdba74; */
+.text-shadow-blue {
     text-shadow: 3px 3px #93c5fd;
 }
 

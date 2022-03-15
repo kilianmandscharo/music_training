@@ -1,14 +1,14 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import IntervalIcon from "../components/IntervalIcon";
+import PageIcon from "../components/PageIcon";
 
 const Home: NextPage = () => {
     return (
         <>
             <Head>
                 <meta charSet="utf-8" />
-                <title>Musiktraining</title>
+                <title>Musikgym</title>
                 <meta name="author" content="Dominik Heller" />
                 <meta
                     name="description"
@@ -25,17 +25,18 @@ const Home: NextPage = () => {
                 <link rel="shortcut icon" href="favicon.ico" />
             </Head>
             <div className="text-white/90 mx-auto p-8 max-w-4xl">
-                <header className="flex justify-around items-center gap-4">
-                    <h1 className="text-5xl text-center font-header text-shadow-orange">
-                        Musiktraining
+                <header className="flex flex-col justify-around items-center gap-8">
+                    <h1 className="text-6xl text-center font-header text-shadow-blue">
+                        Musikgym
                     </h1>
+                    <PageIcon />
                 </header>
-                <p className="mb-20 mt-12">
-                    Herzlich Willkommen zum Musiktraining! Wähle im folgenden
-                    aus, was du trainieren möchtest. Beim Notentraining geht es
-                    darum, Noten im Violin- oder Bassschlüssel zu
-                    identifizieren. Beim Intervalltraining gilt es, verschiedene
-                    Intervalle mit dem Gehör zu erkennen. Viel Spaß dabei!
+                <p className="mb-10 mt-10">
+                    Herzlich Willkommen im Musikgym! Wähle im Folgenden aus, was
+                    du trainieren möchtest. Beim Notentraining geht es darum,
+                    Noten im Violin- oder Bassschlüssel zu identifizieren. Beim
+                    Intervalltraining gilt es, verschiedene Intervalle mit dem
+                    Gehör zu erkennen. Viel Spaß dabei!
                 </p>
                 <div>
                     <Link href="/notentraining">
