@@ -64,6 +64,12 @@ export interface ExtendableMenuProps {
     changeCurrentIntervalDirection: () => void;
 }
 
+export interface HomePageSectionProps {
+    link: string;
+    title: string;
+    description: string;
+}
+
 export interface AudioIconProps {
     playing: boolean;
 }

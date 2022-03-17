@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import HomePageSection from "../components/HomePageSection";
 import PageIcon from "../components/PageIcon";
 
 const Home: NextPage = () => {
@@ -24,37 +25,48 @@ const Home: NextPage = () => {
                 />
                 <link rel="shortcut icon" href="favicon.ico" />
             </Head>
-            <div className="text-white/90 mx-auto p-8 max-w-4xl">
-                <header className="flex flex-col justify-around items-center gap-8">
-                    <h1 className="text-6xl text-center font-header text-shadow-blue">
-                        Musikgym
-                    </h1>
-                    <PageIcon />
-                </header>
-                <p className="mb-10 mt-10">
-                    Herzlich Willkommen im Musikgym! Wähle im Folgenden aus, was
-                    du trainieren möchtest. Beim Notentraining geht es darum,
-                    Noten im Violin- oder Bassschlüssel zu identifizieren. Beim
-                    Intervalltraining gilt es, verschiedene Intervalle mit dem
-                    Gehör zu erkennen. Viel Spaß dabei!
-                </p>
-                <div>
-                    <Link href="/notentraining">
-                        <div className="bg-blue-300 sm:hover:bg-blue-400 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
-                            <a className="text-center text-xl font-body text-gray-800">
-                                Notentraining
-                            </a>
-                        </div>
-                    </Link>
-                    <Link href="/intervalltraining">
-                        <div className="bg-blue-300 sm:hover:bg-blue-400 max-w-sm mx-auto flex justify-center p-4 rounded-md mt-10">
-                            <a className="text-center text-xl font-body text-gray-800">
-                                Intervalltraining
-                            </a>
-                        </div>
-                    </Link>
+            <main>
+                <div className="text-white/90 mx-auto p-8 max-w-4xl font-body">
+                    <header className="flex flex-col justify-around items-center gap-8">
+                        <p className="font-body text-xl text-center mb-[-1rem]">
+                            Herzlich Willkommen
+                            <br />
+                            im
+                        </p>
+                        <h1 className="text-6xl text-center font-header mb-2 text-shadow-blue">
+                            Musikgym
+                        </h1>
+                        <PageIcon />
+                    </header>
+                    <p className="mb-10 mt-10 text-center text-lg">
+                        Wähle im Folgenden aus, was du trainieren möchtest.
+                    </p>
+                    <div>
+                        <HomePageSection
+                            link="/notentraining"
+                            title="Notentraining"
+                            description="Beim Notentraining geht es darum, Noten im Violin- und Bassschlüssel so schnell wie möglich visuell zu identifizieren. Ersterer umfasst in diesem Fall die Noten von F3 bis E6, letzterer die Noten von A1 bis G4."
+                        />
+                        <HomePageSection
+                            link="/intervalltraining"
+                            title="Intervaltraining"
+                            description="Beim Intervalltraining gilt es, verschiedene Intervalle mit dem Gehör zu bestimmen, mit gleichbleibendem oder wechselndem Grundton, auf- oder absteigend."
+                        />
+                    </div>
                 </div>
-            </div>
+            </main>
+            <footer className="mb-2">
+                <p className="text-white/90 text-center text-xs">
+                    This is a private project. Code by{" "}
+                    <a
+                        href="https://github.com/kilianmandscharo"
+                        target="_blank"
+                        className="sm:hover:text-gray-500 text-orange-300 transition-colors"
+                    >
+                        Dominik Heller
+                    </a>
+                </p>
+            </footer>
         </>
     );
 };
