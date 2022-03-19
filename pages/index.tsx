@@ -61,7 +61,7 @@ const Home: NextPage = () => {
                     <a
                         href="https://github.com/kilianmandscharo"
                         target="_blank"
-                        rel="norefferer"
+                        rel="noreferrer noopener"
                         className="sm:hover:text-gray-500 text-orange-300 transition-colors"
                     >
                         Dominik Heller
