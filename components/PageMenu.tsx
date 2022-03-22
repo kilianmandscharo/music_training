@@ -63,7 +63,9 @@ export default function PageMenu({
                     : ""
             }`}
         >
-            <h1 className="text-center text-5xl font-header">{title}</h1>
+            <h1 className="text-center text-4xl sm:text-5xl font-header sm:mb-4">
+                {title}
+            </h1>
             <div className="w-72 flex flex-col gap-4">{buttons}</div>
             <form className="flex flex-col justify-center items-center">
                 <label

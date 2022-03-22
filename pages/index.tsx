@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import HomePageSection from "../components/HomePageSection";
 import PageIcon from "../components/PageIcon";
 
@@ -26,12 +25,10 @@ const Home: NextPage = () => {
                 <link rel="shortcut icon" href="favicon.ico" />
             </Head>
             <main>
-                <div className="text-white/90 mx-auto p-8 max-w-4xl font-body">
+                <div className="text-white/90 mx-auto p-8 max-w-5xl font-body">
                     <header className="flex flex-col justify-around items-center gap-8">
                         <p className="font-body text-xl text-center mb-[-1rem]">
-                            Herzlich Willkommen
-                            <br />
-                            im
+                            Willkommen im
                         </p>
                         <h1 className="text-6xl text-center font-header mb-2 text-shadow-blue">
                             Musikgym
@@ -41,16 +38,16 @@ const Home: NextPage = () => {
                     <p className="mb-10 mt-10 text-center text-lg">
                         Wähle im Folgenden aus, was du trainieren möchtest.
                     </p>
-                    <div>
+                    <div className="grid lg:grid-cols-2 lg:gap-10">
                         <HomePageSection
                             link="/notentraining"
                             title="Notentraining"
-                            description="Beim Notentraining geht es darum, Noten im Violin- und Bassschlüssel so schnell wie möglich visuell zu identifizieren. Ersterer umfasst in diesem Fall die Noten von F3 bis E6, letzterer die Noten von A1 bis G4."
+                            description="Beim Notentraining geht es darum, Noten im Violin- und Bassschlüssel visuell zu identifizieren. Ersterer umfasst in diesem Fall die Noten von F3 bis E6, letzterer die Noten von A1 bis G4."
                         />
                         <HomePageSection
                             link="/intervalltraining"
                             title="Intervaltraining"
-                            description="Beim Intervalltraining gilt es, verschiedene Intervalle mit dem Gehör zu bestimmen, mit gleichbleibendem oder wechselndem Grundton, auf- oder absteigend."
+                            description="Beim Intervalltraining gilt es, die verschiedenen Intervalle innerhalb einer Oktave mit dem Gehör zu bestimmen, mit gleichbleibendem oder wechselndem Grundton, auf- oder absteigend."
                         />
                     </div>
                 </div>
